@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Influencers.BusinessLogic.Services;
 using Influencers.Models;
+using Influencers.Repository.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,10 @@ namespace Influencers
             services
                 .AddDbContext<InfluencersContext>(x =>
                 x.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            services.AddScoped<IArticleRepository, ArticleRepository>();
+
+            services.AddScoped<ArticleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,12 +57,12 @@ namespace Influencers
             app.UseRouting();
 
             app.UseAuthorization();
-
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Article}/{action=Index}/{id?}");
             });
         }
     }

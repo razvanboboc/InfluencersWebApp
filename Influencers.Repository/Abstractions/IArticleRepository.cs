@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Influencers.Repository.Abstractions
 {
-    public interface IArticle : IRepository<Article>
+    public interface IArticleRepository : IRepository<Article>
     {
         IEnumerable<Article> GetArticlesByAuthorId(int authorId);
 

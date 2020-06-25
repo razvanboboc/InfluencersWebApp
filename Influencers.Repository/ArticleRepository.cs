@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Influencers.Repository.Abstractions
 {
-    public class ArticleRepository : BaseRepository<Article>, IArticle
+    public class ArticleRepository : BaseRepository<Article>, IArticleRepository
     {
         public ArticleRepository(InfluencersContext dbContext) : base(dbContext)
         {

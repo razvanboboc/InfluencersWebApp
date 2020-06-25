@@ -5,8 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
-    <Folder Include="Views\Article\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
@@ -20,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Influencers.BusinessLogic\Influencers.BusinessLogic.csproj" />
     <ProjectReference Include="..\Influencers.Models\Influencers.Models.csproj" />
   </ItemGroup>
 

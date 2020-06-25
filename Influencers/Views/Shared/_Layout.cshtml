@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using  Influencers.Helpers
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,7 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" >
+                <a class="navbar-brand" asp-area="" asp-controller="Article" asp-action="Index" >
                     <img src="~/Images/logo4.png" alt="Sample Photo"  />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,22 +22,28 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddArticle">Add Article</a>
+                        @*<li class="nav-item">
+                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddArticle">Add Article</a>
+                          </li>*@
 
+                        <li class="nav-item user-action-button @Html.IsSelected(actions: "AddArticle", controllers: "Article")">
+                            <a class="nav-link text-dark" href="@Url.Action("AddArticle", "Article")">Add Article</a>
                         </li>
-                        @*<li class="@(ViewBag.Current == "Scheduler" ? "active" : "") ">
-                          <a href="@Url.Action("AddArticle","Home")" target="_self">Add Article</a>
-                        </li>*@
-                        
-                        
 
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="JoinInfluencers">Join Influencers</a>
+                        </li>*@
+
+                        <li class="nav-item user-action-button @Html.IsSelected(actions: "JoinInfluencers", controllers: "Article")">
+                            <a class="nav-link text-dark" href="@Url.Action("JoinInfluencers", "Article")">Join Influencers</a>
                         </li>
 
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Ranking">Ranking</a>
+                        </li>*@
+
+                        <li class="nav-item user-action-button @Html.IsSelected(actions: "Ranking", controllers: "Article")">
+                            <a class="nav-link text-dark" href="@Url.Action("Ranking", "Article")">Ranking</a>
                         </li>
                     </ul>
 
@@ -81,13 +89,30 @@
             padding: 10px;
         }
 
-            .nav-item:hover {
-                background-color: lightskyblue;
-            }
+        .nav-item:hover {
+            background-color: lightskyblue;
+        }
 
-        /*.selected .nav-item {
-            background-color: yellow;
-        }*/
+        .selected {
+            background-color: lightskyblue;
+        }
+
+        .user-action-button {
+            margin-top: .25em;
+            font-size: 16px;
+            /*border: solid black;*/
+            color: #4682b4;
+            font-weight: bold;
+            border-bottom-left-radius: 8.5px;
+            border-bottom-right-radius: 8.5px;
+            border-top-left-radius: 8.5px;
+            border-top-right-radius: 8.5px; 
+            /*border-radius:5%; */
+            margin-left: .1em;
+            margin-right: .1em;
+            padding-left: .3em;
+            padding-right: .3em;
+        }
 
         /*a {
             text-decoration: none;

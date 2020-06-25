@@ -4,7 +4,7 @@ using System.Text;
 using Influencers.Models;
 namespace Influencers.Repository.Abstractions
 {
-    public interface IAuthor : IRepository<Author>
+    public interface IAuthorRepository : IRepository<Author>
     {
         Author GetAuthorByArticleId(int articleId);
     }
