@@ -28,8 +28,14 @@ namespace Influencers.Controllers
             return View(new ArticleViewModel { Articles = articles });
         }
 
-        public IActionResult AddArticle()
+        public IActionResult AddArticle([FromForm]AddArticleViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+
+                return BadRequest();
+            }
+            articleService.AddArticle(model.Title, model.Content);
             return View();
         }
 

@@ -1,7 +1,36 @@
-﻿@{
+﻿@model Influencers.BusinessLogic.ViewModels.ArticleViewModels.AddArticleViewModel
+@{
     ViewData["Title"] = "Add Article";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>In this page, users will be able to create an article using their nickname</p>
+<form asp-action="AddArticle" method="post">
+
+    <div class="row">
+        <div class="col-2">
+            Title
+        </div>
+        <div class="col-10">
+            <input class="form-control" type="text" asp-for="Title " />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-2">
+            Content
+        </div>
+        <div class="col-10">
+            <input class="form-control" type="text" asp-for="Content">
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary" href="@Url.Action("Index", "Article")">Post</button>
+              
+        </div>
+    </div>
+</form>
 
