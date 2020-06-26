@@ -33,8 +33,9 @@ namespace Influencers.BusinessLogic.Services
             {
                 Title = title,
                 Content = content,
-                Date = DateTime.Now,
+                AddedTime = DateTime.Now,
                 Author = author,
+                Votes = 0,
             }) ;
         }
     }

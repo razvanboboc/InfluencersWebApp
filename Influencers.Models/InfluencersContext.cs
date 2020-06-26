@@ -24,7 +24,7 @@ namespace Influencers.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Influencers;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-MKTUAUF\\SQLEXPRESS;Initial Catalog=Influencers;Integrated Security=True");
             }
         }
 
@@ -32,9 +32,9 @@ namespace Influencers.Models
         {
             modelBuilder.Entity<Article>(entity =>
             {
-                entity.Property(e => e.AuthorId).HasColumnName("Author_Id");
+                entity.Property(e => e.AddedTime).HasColumnType("datetime");
 
-                entity.Property(e => e.Date).HasColumnType("date");
+                entity.Property(e => e.AuthorId).HasColumnName("Author_Id");
 
                 entity.Property(e => e.Title)
                     .HasMaxLength(255)

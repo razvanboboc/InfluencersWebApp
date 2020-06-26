@@ -9,7 +9,8 @@ namespace Influencers.Models
         public int? AuthorId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public DateTime? Date { get; set; }
+        public DateTime? AddedTime { get; set; }
+        public int? Votes { get; set; }
 
         public virtual Author Author { get; set; }
     }

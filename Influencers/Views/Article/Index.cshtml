@@ -43,7 +43,7 @@
         <div class="content" style=background-color: white;">
             <a asp-action="ViewArticle" asp-route-id="@item.Id" asp-controller="Article" style="text-decoration: none; color: black;">
                 <div class="posted">
-                    Posted by @Html.DisplayFor(model => item.Author.Nickname) on @Html.DisplayFor(model => item.Date)
+                    Posted by @Html.DisplayFor(model => item.Author.Nickname) on @Html.DisplayFor(model => item.AddedTime)
                 </div>
                 <h3>
                     @Html.DisplayFor(model => item.Title)
