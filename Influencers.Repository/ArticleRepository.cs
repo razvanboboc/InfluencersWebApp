@@ -22,24 +22,6 @@ namespace Influencers.Repository.Abstractions
         {
             return dbContext.Article.Include(article => article.Author);
         }
-        public IEnumerable<Article> OrderArticlesByDateAscending()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Article> OrderArticlesByDateDescending()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Article> OrderArticlesByVotesAscending()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Article> OrderArticlesByVotesDescending()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

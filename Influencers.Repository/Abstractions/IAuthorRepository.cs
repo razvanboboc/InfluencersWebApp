@@ -7,5 +7,9 @@ namespace Influencers.Repository.Abstractions
     public interface IAuthorRepository : IRepository<Author>
     {
         Author GetAuthorByArticleId(int articleId);
+
+        Author GetAuthorByEmail(string email);
+
+        bool VerifyIfAuthorExistsByEmail(string email);
     }
 }

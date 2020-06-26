@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Influencers.BusinessLogic.Services;
 using Influencers.Models;
+using Influencers.Repository;
 using Influencers.Repository.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,8 +35,10 @@ namespace Influencers
                 x.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddScoped<IArticleRepository, ArticleRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
 
             services.AddScoped<ArticleService>();
+            services.AddScoped<AuthorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

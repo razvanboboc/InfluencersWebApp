@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Influencers.BusinessLogic.Services;
+using Influencers.BusinessLogic.ViewModels.ArticleViewModels;
+using Influencers.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Influencers.Models;
-using Influencers.BusinessLogic.Services;
-using Influencers.BusinessLogic.ViewModels.ArticleViewModels;
+using System.Diagnostics;
 
 namespace Influencers.Controllers
 {
@@ -15,11 +11,13 @@ namespace Influencers.Controllers
     {
         private readonly ILogger<ArticleController> _logger;
         private readonly ArticleService articleService;
+        private readonly AuthorService authorService;
 
-        public ArticleController(ILogger<ArticleController> logger, ArticleService articleService)
+        public ArticleController(ILogger<ArticleController> logger, ArticleService articleService, AuthorService authorService)
         {
             _logger = logger;
             this.articleService = articleService;
+            this.authorService = authorService;
         }
 
         public IActionResult Index()
@@ -28,6 +26,25 @@ namespace Influencers.Controllers
             return View(new ArticleViewModel { Articles = articles });
         }
 
+        [HttpGet]
+        public IActionResult AddArticle()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult JoinInfluencers()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Ranking()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public IActionResult AddArticle([FromForm]AddArticleViewModel model)
         {
             if (!ModelState.IsValid)
@@ -35,19 +52,18 @@ namespace Influencers.Controllers
 
                 return BadRequest();
             }
-            articleService.AddArticle(model.Title, model.Content);
+
+            var authorExists = authorService.VerifyIfAuthorExistsByEmail(model.Email);
+
+            if (authorExists)
+            {
+                articleService.AddArticle(model.Title, model.Content, model.Email);
+
+            }
+
             return View();
         }
 
-        public IActionResult JoinInfluencers()
-        {
-            return View();
-        }
-
-        public IActionResult Ranking()
-        {
-            return View();
-        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

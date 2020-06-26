@@ -1,0 +1,35 @@
+﻿@model Influencers.BusinessLogic.ViewModels.AuthorViewModels.AddAuthorViewModel
+@{
+    ViewData["Title"] = "Join Influencers";
+}
+
+<h1>Join Influencers</h1>
+
+<form asp-action="JoinInfluencers" method="post">
+    <div class="row">
+        <div class="col-2">
+            E-mail
+        </div>
+        <div class="col-10">
+            <input class="form-control" type="text" asp-for="Email">
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-2">
+            Nickname
+        </div>
+        <div class="col-10">
+            <input class="form-control" type="text" asp-for="Nickname " />
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary" href="@Url.Action("Index", "Article")">Join</button>
+
+        </div>
+    </div>
+</form>

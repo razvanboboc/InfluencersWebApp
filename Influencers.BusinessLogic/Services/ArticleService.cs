@@ -1,5 +1,6 @@
 ﻿using Influencers.Models;
 using Influencers.Repository.Abstractions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,10 +10,12 @@ namespace Influencers.BusinessLogic.Services
     public class ArticleService
     {
         private IArticleRepository articleRepository;
+        private IAuthorRepository authorRepository;
 
-        public ArticleService(IArticleRepository articleRepository)
+        public ArticleService(IArticleRepository articleRepository, IAuthorRepository authorRepository)
         {
             this.articleRepository = articleRepository;
+            this.authorRepository = authorRepository;
         }
 
         public IEnumerable<Article> GetAll()
@@ -22,14 +25,17 @@ namespace Influencers.BusinessLogic.Services
             return articles;
         }
 
-        public void AddArticle(string title, string content)
+        public void AddArticle(string title, string content, string email)
         {
+            var author = authorRepository.GetAuthorByEmail(email);
+
             articleRepository.Add(new Article()
             {
                 Title = title,
                 Content = content,
                 Date = DateTime.Now,
-            });
+                Author = author,
+            }) ;
         }
     }
 }

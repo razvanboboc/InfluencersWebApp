@@ -8,11 +8,5 @@ namespace Influencers.Repository.Abstractions
     public interface IArticleRepository : IRepository<Article>
     {
         IEnumerable<Article> GetArticlesByAuthorId(int authorId);
-
-        IEnumerable<Article> OrderArticlesByDateAscending();
-        IEnumerable<Article> OrderArticlesByDateDescending();
-        IEnumerable<Article> OrderArticlesByVotesAscending();
-        IEnumerable<Article> OrderArticlesByVotesDescending();
-
-     }
+    }
 }

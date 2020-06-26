@@ -2,10 +2,18 @@
 @{
     ViewData["Title"] = "Add Article";
 }
-<h1>@ViewData["Title"]</h1>
+
 
 <form asp-action="AddArticle" method="post">
-
+    <div class="row">
+        <div class="col-2">
+            E-mail
+        </div>
+        <div class="col-10">
+            <input class="form-control" type="text" asp-for="Email">
+        </div>
+    </div>
+    <br />
     <div class="row">
         <div class="col-2">
             Title
@@ -29,7 +37,7 @@
         <div class="col-10"></div>
         <div class="col-2">
             <button type="submit" class="btn btn-primary" href="@Url.Action("Index", "Article")">Post</button>
-              
+
         </div>
     </div>
 </form>
