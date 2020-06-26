@@ -18,6 +18,7 @@ namespace Influencers.BusinessLogic.Services
         public IEnumerable<Article> GetAll()
         {
             var articles = articleRepository.GetAll();
+            
             return articles;
         }
 

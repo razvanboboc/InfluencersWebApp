@@ -1,4 +1,5 @@
 ﻿using Influencers.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,10 @@ namespace Influencers.Repository.Abstractions
             var articles = dbContext.Article.Where(a => a.AuthorId == authorId).AsEnumerable();
             return articles;
         }
-
+        public override IEnumerable<Article> GetAll()
+        {
+            return dbContext.Article.Include(article => article.Author);
+        }
         public IEnumerable<Article> OrderArticlesByDateAscending()
         {
             throw new NotImplementedException();
