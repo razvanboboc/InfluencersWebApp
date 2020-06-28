@@ -23,6 +23,11 @@ namespace Influencers.Repository
             return dbContext.Author.Where(a => a.Email == email).SingleOrDefault();
         }
 
+        public IEnumerable<Author> OrderAuthorsDescendingByVotes(IEnumerable<Author> authors)
+        {
+            return authors.OrderByDescending(author => author.Votes);
+        }
+
         public bool VerifyIfAuthorExistsByEmail(string email)
         {
             var authors = dbContext.Author.Where(a => a.Email == email).Count();

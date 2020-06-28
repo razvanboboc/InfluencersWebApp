@@ -38,5 +38,10 @@ namespace Influencers.BusinessLogic.Services
                 Votes = 0,
             }) ;
         }
+
+        public Article GetArticleById(int id)
+        {
+            return articleRepository.GetArticleById(id);
+        }
     }
 }

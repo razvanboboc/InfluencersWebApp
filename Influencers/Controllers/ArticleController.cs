@@ -27,6 +27,13 @@ namespace Influencers.Controllers
         }
 
         [HttpGet]
+        public IActionResult ViewArticle(int id)
+        {
+            var article = articleService.GetArticleById(id);
+            return View(new ViewArticleViewModel { Article = article });
+        }
+
+        [HttpGet]
         public IActionResult AddArticle()
         {
             return View();
@@ -38,11 +45,6 @@ namespace Influencers.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Ranking()
-        {
-            return View();
-        }
 
         [HttpPost]
         public IActionResult AddArticle([FromForm]AddArticleViewModel model)

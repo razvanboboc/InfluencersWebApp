@@ -18,7 +18,10 @@ namespace Influencers.BusinessLogic.Services
         {
             return authorRepository.VerifyIfAuthorExistsByEmail(email);
         }
-
+        public IEnumerable<Author> OrderAuthorsDescendingByVotes(IEnumerable<Author> authors)
+        {
+            return authorRepository.OrderAuthorsDescendingByVotes(authors);
+        }
         public void Add(string nickname, string email)
         {
             authorRepository.Add(new Author()
@@ -27,6 +30,11 @@ namespace Influencers.BusinessLogic.Services
                 Email = email,
                 Votes = 0,
             }) ;
+        }
+
+        public IEnumerable<Author> GetAll()
+        {
+            return authorRepository.GetAll();
         }
     }
 }

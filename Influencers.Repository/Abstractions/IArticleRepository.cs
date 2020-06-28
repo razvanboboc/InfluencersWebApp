@@ -8,5 +8,6 @@ namespace Influencers.Repository.Abstractions
     public interface IArticleRepository : IRepository<Article>
     {
         IEnumerable<Article> GetArticlesByAuthorId(int authorId);
+        Article GetArticleById(int id);
     }
 }

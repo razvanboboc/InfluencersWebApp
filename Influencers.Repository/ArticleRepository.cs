@@ -22,6 +22,10 @@ namespace Influencers.Repository.Abstractions
         {
             return dbContext.Article.Include(article => article.Author);
         }
-        
+
+        public Article GetArticleById(int id)
+        {
+            return dbContext.Article.Where(article => article.Id == id).SingleOrDefault();
+        }
     }
 }

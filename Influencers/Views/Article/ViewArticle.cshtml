@@ -1,0 +1,17 @@
+﻿@model Influencers.BusinessLogic.ViewModels.ArticleViewModels.ViewArticleViewModel
+@{
+    ViewData["Title"] = "ViewArticle";
+}
+
+<h2 style="text-align:center">@Model.Article.Title</h2>
+<br />
+<br />
+
+<p>@Model.Article.Content</p>
+<br />
+
+<p>Posted at @Model.Article.AddedTime</p>
+
+<a href='@Url.Action("Index", "Article")'>Back</a>
+<br />
+

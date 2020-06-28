@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Influencers.BusinessLogic.Services;
+using Influencers.BusinessLogic.ViewModels.ArticleViewModels;
 using Influencers.BusinessLogic.ViewModels.AuthorViewModels;
 using Influencers.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,13 @@ namespace Influencers.Controllers
         {
             return View();
         }
-
+        [HttpGet]
+        public IActionResult Ranking()
+        {
+            var authors = authorService.GetAll();
+            var orderedAuthorsDescendingly = authorService.OrderAuthorsDescendingByVotes(authors);
+            return View(new RankingViewModel { Authors = orderedAuthorsDescendingly });
+        }
         [HttpPost]
         public IActionResult JoinInfluencers([FromForm]AddAuthorViewModel model)
         {

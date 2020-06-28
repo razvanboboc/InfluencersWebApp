@@ -11,5 +11,7 @@ namespace Influencers.Repository.Abstractions
         Author GetAuthorByEmail(string email);
 
         bool VerifyIfAuthorExistsByEmail(string email);
+
+        IEnumerable<Author> OrderAuthorsDescendingByVotes(IEnumerable<Author> authors);
     }
 }

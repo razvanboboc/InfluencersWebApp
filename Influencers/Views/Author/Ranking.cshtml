@@ -1,0 +1,87 @@
+﻿@model Influencers.BusinessLogic.ViewModels.AuthorViewModels.RankingViewModel
+@{
+    ViewData["Title"] = "Ranking";
+}
+
+<h1>Ranking</h1>
+
+<div class="c">
+    <table class="tableFixHead" border="1">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Nickname")
+                </th>
+
+                <th>
+                    @Html.DisplayName("Karma")
+                </th>
+
+                <th>
+                   
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Authors.Count() == 0)
+            {
+                <tr>
+                    <td colspan="4">
+                        No authors available
+                    </td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var item in Model.Authors)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => item.Nickname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.Votes)
+                        </td>
+                        <td>
+                            <a asp-action="ViewAnnouncement" asp-route-id="@item.Id" asp-controller="Home">View</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+    .tableFixHead {
+        overflow-y: auto;
+        height: 100px;
+    }
+
+        .tableFixHead thead th {
+            position: sticky;
+            top: 0;
+        }
+
+    /* Just common table stuff. Really. */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px 16px;
+    }
+
+    th {
+        background: #eee;
+    }
+
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 35%;
+    }
+</style>
