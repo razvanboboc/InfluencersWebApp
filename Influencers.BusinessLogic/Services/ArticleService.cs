@@ -17,6 +17,10 @@ namespace Influencers.BusinessLogic.Services
             this.articleRepository = articleRepository;
             this.authorRepository = authorRepository;
         }
+        public void UpdateArticleVotes(int articleId, bool flag)
+        {
+            articleRepository.UpdateArticleVotes(articleId, flag);
+        }
 
         public IEnumerable<Article> GetAll()
         {

@@ -27,5 +27,19 @@ namespace Influencers.Repository.Abstractions
         {
             return dbContext.Article.Where(article => article.Id == id).SingleOrDefault();
         }
+
+        public void UpdateArticleVotes(int articleId, bool flag)
+        {
+            var article = dbContext.Article.Where(article => article.Id == articleId).SingleOrDefault();
+
+            if(flag == true)
+            {
+                article.Votes++;
+            }
+            else
+            {
+                article.Votes--;
+            }
+        }
     }
 }

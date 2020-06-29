@@ -9,5 +9,7 @@ namespace Influencers.Repository.Abstractions
     {
         IEnumerable<Article> GetArticlesByAuthorId(int authorId);
         Article GetArticleById(int id);
+
+        void UpdateArticleVotes(int articleId, bool flag);
     }
 }
