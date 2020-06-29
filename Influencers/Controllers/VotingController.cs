@@ -22,11 +22,12 @@ namespace Influencers.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("api/[controller]/[action]")]
-        public ActionResult AddVote(VotingDto votingDto)
+        public ActionResult AddVote(int articleId, bool flag)
         {
             try
             {
-                articleService.UpdateArticleVotes(votingDto.ArticleId, votingDto.Flag);
+                //articleService.UpdateArticleVotes(votingDto.ArticleId, votingDto.Flag);
+                articleService.UpdateArticleVotes(articleId, flag);
                 return Ok();
             }
             catch

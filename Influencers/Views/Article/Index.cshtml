@@ -9,7 +9,8 @@
     $(document).ready(function () {
         $("button").click(function () {
             $.ajax({
-                url: 'http://http://localhost:44379/api/Voting/AddVote',
+                type: 'POST',
+                url: 'http://localhost:44379/api/Voting/AddVote',
                 data: {
                     articleId: 5,
                     flag: true
@@ -23,8 +24,7 @@
                     $('#info')
                         .append($title)
                         .append($description);
-                },
-                method: 'POST'
+                }
             });
         });
     });
