@@ -7,13 +7,8 @@ namespace Influencers.RequestDtos
 {
     public class VotingDto
     {
-        public bool Flag;
-        public int ArticleId;
-        public VotingDto(bool flag, int articleId)
-        {
-            Flag = flag;
-            ArticleId = articleId;
-        }
+        public bool Flag { get; set; }
+        public int ArticleId { get; set; }
 
     }
 }

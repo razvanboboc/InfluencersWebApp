@@ -6,31 +6,29 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $("button").click(function () {
-            $.ajax({
-                type: 'POST',
-                url: 'http://localhost:44379/api/Voting/AddVote',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: {
-                    "ArticleId": 5,
-
-                    "Flag": "true"
-                },
-                //error: function () {
-                //    $('#info').html('<p>An error has occurred</p>');
-                //},
-                success: function (data) {
-                    var $title = $('<h1>').text(data.talks[0].talk_title);
-                    var $description = $('<p>').text(data.talks[0].talk_description);
-                    $('#info')
-                        .append($title)
-                        .append($description);
-                }
-            });
+    let sendVote = (id) => {
+        debugger;
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:44379/api/Voting/AddVote',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                Flag: true,
+                ArticleId: id
+            }),
+            error: function (err) {
+                //$('#info').html('<p>An error has occurred</p>');
+                console.log(err);
+            },
+            //success: function (data) {
+            //    var $title = $('<h1>').text(data.talks[0].talk_title);
+            //    var $description = $('<p>').text(data.talks[0].talk_description);
+            //    $('#info')
+            //        .append($title)
+            //        .append($description);
+            //}
         });
-    });
+    }
 </script>
 
 <head>
@@ -66,7 +64,7 @@
                     @Html.DisplayFor(model => item.Content)
                 </p>
             </a>
-            <button>Send an HTTP GET request to a page and get the result back</button>
+            <button onclick="sendVote(@item.Id)">Send an HTTP GET request to a page and get the result back</button>
         </div>
 
     </div>
