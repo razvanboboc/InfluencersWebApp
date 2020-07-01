@@ -4,6 +4,7 @@
 // Write your JavaScript code.
 
 //Upvote/Downvote functionality
+
 const up_vote_spans = document.getElementsByClassName('up-vote');
 const down_vote_spans = document.getElementsByClassName('down-vote');
 const count = document.getElementsByClassName('number');
