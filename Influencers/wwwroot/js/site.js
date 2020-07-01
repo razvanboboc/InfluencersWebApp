@@ -20,7 +20,7 @@ for (let i = 0; i < count.length; i += 1) {
     thisDownVoteSpan.addEventListener('click', handleDownvote.bind(null, i), false);
 }
 
-function handleUpvote(i) {
+function handleUpvote(i,) {
     const currentVote = votes[i];
     const matchingUpSpan = up_vote_spans[i];
     const matchingDownSpan = down_vote_spans[i];

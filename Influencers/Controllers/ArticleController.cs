@@ -52,7 +52,7 @@ namespace Influencers.Controllers
             if (!ModelState.IsValid)
             {
 
-                return BadRequest();
+                return View(model);
             }
 
             var authorExists = authorService.VerifyIfAuthorExistsByEmail(model.Email);

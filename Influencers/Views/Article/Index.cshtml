@@ -20,13 +20,14 @@
                 //$('#info').html('<p>An error has occurred</p>');
                 console.log(err);
             },
-            //success: function (data) {
-            //    var $title = $('<h1>').text(data.talks[0].talk_title);
-            //    var $description = $('<p>').text(data.talks[0].talk_description);
-            //    $('#info')
-            //        .append($title)
-            //        .append($description);
-            //}
+            success: function (data) {
+                console.log(data)
+                //var $title = $('<h1>').text(data.talks[0].talk_title);
+                //var $description = $('<p>').text(data.talks[0].talk_description);
+                //$('#info')
+                //    .append($title)
+                //    .append($description);
+            }
         });
     }
 </script>
@@ -47,7 +48,7 @@
 {
     <div class="w-auto p-3 post-container" style="background-color: #FCFCFC;">
         <div class="vote vote-container">
-            <span method="post" class="up-vote" ><i class="fas fa-angle-up" onclick="sendVote(@item.Id,true)"></i></span>
+            <span class="up-vote" ><i class="fas fa-angle-up" onclick="sendVote(@item.Id,true)"></i></span>
             <span class="number">@Html.DisplayFor(model => item.Votes)</span>
             <span class="down-vote" ><i class="fas fa-angle-down" onclick="sendVote(@item.Id, false)"></i></span>
         </div>

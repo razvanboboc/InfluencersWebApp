@@ -8,7 +8,7 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
 {
     public class AddArticleViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="")]
         [StringLength(100)]
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")]
         public string Email { get; set; }

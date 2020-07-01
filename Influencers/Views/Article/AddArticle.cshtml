@@ -11,7 +11,7 @@
         </div>
         <div class="col-10">
             
-            <input class="form-control" type="email" id="email" asp-for="Email" required>
+            <input class="form-control" type="email" id="email" asp-for="Email">
         </div>
     </div>
     <br />
@@ -20,7 +20,8 @@
             Title
         </div>
         <div class="col-10">
-            <input class="form-control" type="text" asp-for="Title " required/>
+            <input class="form-control" type="text" asp-for="Title "/>
+            <span asp-validation-for="Title" class="text-danger"></span>
         </div>
     </div>
     <br />
@@ -29,7 +30,7 @@
             Content
         </div>
         <div class="col-10">
-            <input class="form-control" type="text" asp-for="Content" required>
+            <input class="form-control" type="text" asp-for="Content">
         </div>
     </div>
     <br />
