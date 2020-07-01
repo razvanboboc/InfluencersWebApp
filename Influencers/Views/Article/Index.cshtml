@@ -11,6 +11,8 @@
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:44379/api/Voting/AddVote',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
                 data: {
                     "ArticleId": 5,
 
