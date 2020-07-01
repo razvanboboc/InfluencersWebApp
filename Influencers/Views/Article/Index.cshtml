@@ -4,33 +4,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    let sendVote = (id, flag) => {
-        debugger;
-        $.ajax({
-            type: 'POST',
-            url: 'http://localhost:44379/api/Voting/AddVote',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                Flag: flag,
-                ArticleId: id
-            }),
-            error: function (err) {
-                //$('#info').html('<p>An error has occurred</p>');
-                console.log(err);
-            },
-            success: function (data) {
-                console.log(data)
-                //var $title = $('<h1>').text(data.talks[0].talk_title);
-                //var $description = $('<p>').text(data.talks[0].talk_description);
-                //$('#info')
-                //    .append($title)
-                //    .append($description);
-            }
-        });
-    }
-</script>
 
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -48,9 +21,9 @@
 {
     <div class="w-auto p-3 post-container" style="background-color: #FCFCFC;">
         <div class="vote vote-container">
-            <span class="up-vote" ><i class="fas fa-angle-up" onclick="sendVote(@item.Id,true)"></i></span>
+            <span class="up-vote" onclick="sendVote(@item.Id,true)" ><i class="fas fa-angle-up"></i></span>
             <span class="number">@Html.DisplayFor(model => item.Votes)</span>
-            <span class="down-vote" ><i class="fas fa-angle-down" onclick="sendVote(@item.Id, false)"></i></span>
+            <span class="down-vote" onclick="sendVote(@item.Id, false)"><i class="fas fa-angle-down" ></i></span>
         </div>
         <div class="content" style=background-color: white;">
             <a asp-action="ViewArticle" asp-route-id="@item.Id" asp-controller="Article" style="text-decoration: none; color: black;">

@@ -5,6 +5,10 @@
 
 //Upvote/Downvote functionality
 
+var script = document.createElement('script');
+script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';
+document.getElementsByTagName('head')[0].appendChild(script); 
+
 const up_vote_spans = document.getElementsByClassName('up-vote');
 const down_vote_spans = document.getElementsByClassName('down-vote');
 const count = document.getElementsByClassName('number');
@@ -20,7 +24,7 @@ for (let i = 0; i < count.length; i += 1) {
     thisDownVoteSpan.addEventListener('click', handleDownvote.bind(null, i), false);
 }
 
-function handleUpvote(i,) {
+function handleUpvote(i) {
     const currentVote = votes[i];
     const matchingUpSpan = up_vote_spans[i];
     const matchingDownSpan = down_vote_spans[i];
@@ -68,4 +72,29 @@ function handleDownvote(i) {
         matchingDownSpan.style.color = 'dimgray';
         currentVote.down = false;
     }
+}
+
+const sendVote = (id, flag) => {
+
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:44379/api/Voting/AddVote',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            Flag: flag,
+            ArticleId: id
+        }),
+        error: function (err) {
+            //$('#info').html('<p>An error has occurred</p>');
+            console.log(err);
+        },
+        success: function (data) {
+            console.log(data)
+            //var $title = $('<h1>').text(data.talks[0].talk_title);
+            //var $description = $('<p>').text(data.talks[0].talk_description);
+            //$('#info')
+            //    .append($title)
+            //    .append($description);
+        }
+    });
 }

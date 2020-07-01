@@ -26,7 +26,7 @@ namespace Influencers.Controllers
         {
             try
             {
-                //articleService.UpdateArticleVotes(votingDto.ArticleId, votingDto.Flag);
+                articleService.UpdateArticleVotes(votingDto.ArticleId, votingDto.Flag);
                 //articleService.UpdateArticleVotes(articleId, flag);
                 return Ok(new { articleid = votingDto.ArticleId });
             }
