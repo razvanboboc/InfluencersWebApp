@@ -40,6 +40,8 @@ namespace Influencers.Repository.Abstractions
             {
                 article.Votes--;
             }
+
+            dbContext.SaveChanges();
         }
     }
 }
