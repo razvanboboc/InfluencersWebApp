@@ -21,9 +21,9 @@
 {
     <div class="w-auto p-3 post-container" style="background-color: #FCFCFC;">
         <div class="vote vote-container">
-            <span class="up-vote" onclick="sendVote(@item.Id,true)" ><i class="fas fa-angle-up"></i></span>
+            <span class="up-vote" onclick="sendVote(@item.Id,1)" ><i class="fas fa-angle-up"></i></span>
             <span class="number">@Html.DisplayFor(model => item.Votes)</span>
-            <span class="down-vote" onclick="sendVote(@item.Id, false)"><i class="fas fa-angle-down" ></i></span>
+            <span class="down-vote" onclick="sendVote(@item.Id, 2)"><i class="fas fa-angle-down" ></i></span>
         </div>
         <div class="content" style=background-color: white;">
             <a asp-action="ViewArticle" asp-route-id="@item.Id" asp-controller="Article" style="text-decoration: none; color: black;">

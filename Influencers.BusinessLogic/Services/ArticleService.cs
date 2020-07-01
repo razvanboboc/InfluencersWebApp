@@ -17,7 +17,7 @@ namespace Influencers.BusinessLogic.Services
             this.articleRepository = articleRepository;
             this.authorRepository = authorRepository;
         }
-        public void UpdateArticleVotes(int articleId, bool flag)
+        public void UpdateArticleVotes(int articleId, int flag)
         {
             articleRepository.UpdateArticleVotes(articleId, flag);
         }
