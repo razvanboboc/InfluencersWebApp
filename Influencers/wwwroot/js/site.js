@@ -9,11 +9,18 @@ var script = document.createElement('script');
 script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';
 document.getElementsByTagName('head')[0].appendChild(script); 
 
+var script2 = document.createElement('script2');
+script2.src = 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js';
+document.getElementsByTagName('head')[0].appendChild(script2); 
+
 const up_vote_spans = document.getElementsByClassName('up-vote');
 const down_vote_spans = document.getElementsByClassName('down-vote');
 const count = document.getElementsByClassName('number');
 
 let votes = [];
+
+Cookies.set('voted', '0', { expires: 365 });
+
 
 for (let i = 0; i < count.length; i += 1) {
     const thisUpVoteSpan = up_vote_spans[i];
@@ -74,27 +81,29 @@ function handleDownvote(i) {
     }
 }
 
-const sendVote = (id, flag) => {
-
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:44379/api/Voting/AddVote',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            Flag: flag,
-            ArticleId: id
-        }),
-        error: function (err) {
-            //$('#info').html('<p>An error has occurred</p>');
-            console.log(err);
-        },
-        success: function (data) {
-            console.log(data)
-            //var $title = $('<h1>').text(data.talks[0].talk_title);
-            //var $description = $('<p>').text(data.talks[0].talk_description);
-            //$('#info')
-            //    .append($title)
-            //    .append($description);
-        }
-    });
+function sendVote (id, flag)  {
+    if (Cookies.get('voted') == 0) {
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:44379/api/Voting/AddVote',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                Flag: flag,
+                ArticleId: id
+            }),
+            error: function (err) {
+                //$('#info').html('<p>An error has occurred</p>');
+                console.log(err);
+            },
+            success: function (data) {
+                console.log(data)
+                //var $title = $('<h1>').text(data.talks[0].talk_title);
+                //var $description = $('<p>').text(data.talks[0].talk_description);
+                //$('#info')
+                //    .append($title)
+                //    .append($description);
+            }
+        });
+    } 
+    Cookies.set('voted', '1');
 }
