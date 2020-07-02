@@ -1,5 +1,6 @@
 ﻿using Influencers.Models;
 using Influencers.Repository.Abstractions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,13 @@ namespace Influencers.Repository
         }
         public Author GetAuthorByArticleId(int articleId)
         {
-            throw new NotImplementedException();
+            var article = dbContext.Article.Where(a => a.Id== articleId).SingleOrDefault();
+
+            var authorId =  article.AuthorId;
+
+            var author = dbContext.Author.Where(a => a.Id == authorId).SingleOrDefault();
+
+            return author;
         }
 
         public Author GetAuthorByEmail(string email)
@@ -26,6 +33,27 @@ namespace Influencers.Repository
         public IEnumerable<Author> OrderAuthorsDescendingByVotes(IEnumerable<Author> authors)
         {
             return authors.OrderByDescending(author => author.Votes);
+        }
+
+        public void UpdateAuthorPostVotes(Author author, int flag)
+        {
+            switch (flag)
+            {
+                case 1:
+                    author.Votes++;
+                    break;
+                case 2:
+                    author.Votes--;
+                    break;
+                case 3:
+                    author.Votes += 2;
+                    break;
+                case 4:
+                    author.Votes -= 2;
+                    break;
+            };
+
+            dbContext.SaveChanges();
         }
 
         public bool VerifyIfAuthorExistsByEmail(string email)

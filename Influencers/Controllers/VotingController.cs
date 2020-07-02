@@ -14,9 +14,11 @@ namespace Influencers.Controllers
     public class VotingController : ControllerBase
     {
         private readonly ArticleService articleService;
-        public VotingController(ArticleService articleService)
+        private readonly AuthorService authorService;
+        public VotingController(ArticleService articleService, AuthorService authorService)
         {
             this.articleService = articleService;
+            this.authorService = authorService;
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -27,7 +29,11 @@ namespace Influencers.Controllers
             try
             {
                 articleService.UpdateArticleVotes(votingDto.ArticleId, votingDto.Flag);
-                //articleService.UpdateArticleVotes(articleId, flag);
+
+                var author = authorService.GetAuthorByArticleId(votingDto.ArticleId);
+
+                authorService.UpdateAuthorPostVotes(author, votingDto.Flag);
+
                 return Ok(new { articleid = votingDto.ArticleId });
             }
             catch

@@ -36,5 +36,17 @@ namespace Influencers.BusinessLogic.Services
         {
             return authorRepository.GetAll();
         }
+
+        public Author GetAuthorByArticleId(int articleId)
+        {
+            return authorRepository.GetAuthorByArticleId(articleId);
+        }
+
+        public void UpdateAuthorPostVotes(Author author, int flag)
+        {
+            authorRepository.UpdateAuthorPostVotes(author, flag);
+        }
+
+
     }
 }
