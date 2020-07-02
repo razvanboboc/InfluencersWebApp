@@ -32,9 +32,11 @@ for (let i = 0; i < count.length; i += 1) {
     cookiesUpvoted[i] = Cookies.set('upvoted', '0');
     cookiesDownvoted[i] = Cookies.set('downvoted', '0');
 
-    thisUpVoteSpan.addEventListener('userVoted', handleUpvote.bind(null, i), false);
-    thisDownVoteSpan.addEventListener('userVoted', handleDownvote.bind(null, i), false);
+    thisUpVoteSpan.addEventListener('click', handleUpvote.bind(null, i), false);
+    thisDownVoteSpan.addEventListener('click', handleDownvote.bind(null, i), false);
 
+    thisDownVoteSpan.addEventListener('click', handleDownvote.bind(null, i), false);
+    thisDownVoteSpan.addEventListener('click', handleDownvote.bind(null, i), false);
 }
 
 function handleUpvote(i) {
@@ -90,7 +92,7 @@ function handleDownvote(i) {
     cookiesDownvoted[i] = Cookies.set('downvoted', '1');
 }
 
-function sendVote(id, flag) {
+function sendVote(id, flag, i) {
 
     //var userVoted = new CustomEvent("userVoted");
     //document.dispatchEvent(userVoted);
