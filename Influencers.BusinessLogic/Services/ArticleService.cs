@@ -52,5 +52,10 @@ namespace Influencers.BusinessLogic.Services
         {
             return articleRepository.GetPreviewedArticles(articles);
         }
+
+        public void OrderArticlesDescendinglyByVotes(IEnumerable<Article> articles)
+        {
+            articleRepository.OrderArticlesDescendinglyByVotes(articles);
+        }
     }
 }

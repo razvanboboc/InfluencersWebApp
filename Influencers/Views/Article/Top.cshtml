@@ -1,7 +1,7 @@
 ﻿@model Influencers.BusinessLogic.ViewModels.ArticleViewModels.ArticleViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Top";
 }
 
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
@@ -15,7 +15,7 @@
 
 
 <div class="post-container" style="background-color: #FCFCFC;">
-    <a asp-action="Top" asp-controller="Article" style="text-decoration: none; color: black;">
+    <a asp-action="Top" asp-controller="Article" >
         <i class="fas fa-crown fa-2x" style=""></i>
     </a>
 </div>

@@ -60,5 +60,10 @@ namespace Influencers.Repository.Abstractions
 
             return articles; 
         }
+
+        public void OrderArticlesDescendinglyByVotes(IEnumerable<Article> articles)
+        {
+            articles = articles.OrderByDescending(article => article.Votes);
+        }
     }
 }

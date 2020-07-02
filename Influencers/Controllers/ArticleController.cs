@@ -20,11 +20,24 @@ namespace Influencers.Controllers
             this.authorService = authorService;
         }
 
+
         public IActionResult Index()
         {
             var articles = articleService.GetAll();
 
             var previewedArticles = articleService.GetPreviewedArticles(articles);
+
+            return View(new ArticleViewModel { Articles = previewedArticles });
+        }
+        [HttpGet]
+        public IActionResult Top()
+        {
+            var articles = articleService.GetAll();
+            
+            var previewedArticles = articleService.GetPreviewedArticles(articles);
+
+            articleService.OrderArticlesDescendinglyByVotes(previewedArticles);
+
             return View(new ArticleViewModel { Articles = previewedArticles });
         }
 

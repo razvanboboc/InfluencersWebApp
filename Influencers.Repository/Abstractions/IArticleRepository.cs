@@ -13,5 +13,7 @@ namespace Influencers.Repository.Abstractions
         void UpdateArticleVotes(int articleId, int flag);
 
         IEnumerable<Article> GetPreviewedArticles(IEnumerable<Article> articles);
+
+        void OrderArticlesDescendinglyByVotes(IEnumerable<Article> articles);
     }
 }
