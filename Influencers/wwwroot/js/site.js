@@ -18,8 +18,10 @@ const down_vote_spans = document.getElementsByClassName('down-vote');
 const count = document.getElementsByClassName('number');
 
 let votes = [];
+let cookiesUpvoted = [];
+let cookiesDownvoted = [];
 
-Cookies.set('voted', '0', { expires: 365 });
+//Cookies.set('voted', '0', { expires: 365 });
 
 
 for (let i = 0; i < count.length; i += 1) {
@@ -27,8 +29,12 @@ for (let i = 0; i < count.length; i += 1) {
     const thisDownVoteSpan = down_vote_spans[i];
     votes[i] = { up: false, down: false };
 
-    thisUpVoteSpan.addEventListener('click', handleUpvote.bind(null, i), false);
-    thisDownVoteSpan.addEventListener('click', handleDownvote.bind(null, i), false);
+    cookiesUpvoted[i] = Cookies.set('upvoted', '0');
+    cookiesDownvoted[i] = Cookies.set('downvoted', '0');
+
+    thisUpVoteSpan.addEventListener('userVoted', handleUpvote.bind(null, i), false);
+    thisDownVoteSpan.addEventListener('userVoted', handleDownvote.bind(null, i), false);
+
 }
 
 function handleUpvote(i) {
@@ -37,6 +43,7 @@ function handleUpvote(i) {
     const matchingDownSpan = down_vote_spans[i];
     const matchingCount = count[i];
     const currentCount = parseInt(matchingCount.innerHTML);
+
 
     if (currentVote.down) {
         matchingCount.innerHTML = currentCount + 2;
@@ -54,6 +61,7 @@ function handleUpvote(i) {
         matchingUpSpan.style.color = 'dimgray';
         currentVote.up = false;
     }
+    cookiesUpvoted[i] = Cookies.set('upvoted', '1');
 }
 
 function handleDownvote(i) {
@@ -79,9 +87,14 @@ function handleDownvote(i) {
         matchingDownSpan.style.color = 'dimgray';
         currentVote.down = false;
     }
+    cookiesDownvoted[i] = Cookies.set('downvoted', '1');
 }
 
-function sendVote (id, flag)  {
+function sendVote(id, flag) {
+
+    //var userVoted = new CustomEvent("userVoted");
+    //document.dispatchEvent(userVoted);
+
     if (Cookies.get('voted') == 0) {
         $.ajax({
             type: 'POST',
