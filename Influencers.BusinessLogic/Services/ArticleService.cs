@@ -47,5 +47,10 @@ namespace Influencers.BusinessLogic.Services
         {
             return articleRepository.GetArticleById(id);
         }
+
+        public IEnumerable<Article> GetPreviewedArticles(IEnumerable<Article> articles)
+        {
+            return articleRepository.GetPreviewedArticles(articles);
+        }
     }
 }

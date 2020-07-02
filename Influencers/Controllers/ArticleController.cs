@@ -23,7 +23,9 @@ namespace Influencers.Controllers
         public IActionResult Index()
         {
             var articles = articleService.GetAll();
-            return View(new ArticleViewModel { Articles = articles });
+
+            var previewedArticles = articleService.GetPreviewedArticles(articles);
+            return View(new ArticleViewModel { Articles = previewedArticles });
         }
 
         [HttpGet]

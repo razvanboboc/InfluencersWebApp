@@ -50,5 +50,15 @@ namespace Influencers.Repository.Abstractions
 
             dbContext.SaveChanges();
         }
+
+        public IEnumerable<Article> GetPreviewedArticles(IEnumerable<Article> articles)
+        {
+            foreach(var article in articles)
+            {
+                article.Content = article.Content.Substring(0, article.Content.Length/2);
+            }
+
+            return articles; 
+        }
     }
 }
