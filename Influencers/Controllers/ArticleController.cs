@@ -2,8 +2,10 @@
 using Influencers.BusinessLogic.ViewModels.ArticleViewModels;
 using Influencers.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Influencers.Controllers
 {
@@ -36,13 +38,47 @@ namespace Influencers.Controllers
             
             var previewedArticles = articleService.GetPreviewedArticles(articles);
 
-            articleService.OrderArticlesDescendinglyByVotes(previewedArticles);
+            var orderedArticlesByTop = articleService.OrderArticlesDescendinglyByVotes(previewedArticles);
 
-            return View(new ArticleViewModel { Articles = previewedArticles });
+            return View(new ArticleViewModel { Articles = orderedArticlesByTop });
         }
 
         [HttpGet]
-        public IActionResult ViewArticle(int id)
+        public IActionResult New()
+        {
+            var articles = articleService.GetAll();
+
+            var previewedArticles = articleService.GetPreviewedArticles(articles);
+
+            var orderedArticlesByNew = articleService.OrderArticleMostRecent(previewedArticles);
+
+            return View(new ArticleViewModel { Articles = orderedArticlesByNew });
+        }
+
+        [HttpGet]
+        public IActionResult Old()
+        {
+            var articles = articleService.GetAll();
+
+            var previewedArticles = articleService.GetPreviewedArticles(articles);
+
+            return View(new ArticleViewModel { Articles = previewedArticles.OrderBy(article => article.AddedTime) });
+        }
+
+        [HttpGet]
+        public IActionResult Hot()
+        {
+            var articles = articleService.GetAll();
+
+            var previewedArticles = articleService.GetPreviewedArticles(articles);
+
+            var categorizedArticles = articleService.CategorizeHot(previewedArticles);
+
+            return View(new ArticleViewModel { Articles = categorizedArticles});
+        }
+
+        [HttpGet]
+        public IActionResult ViewArticle([FromRoute]int id)
         {
             var article = articleService.GetArticleById(id);
             return View(new ViewArticleViewModel { Article = article });
@@ -60,6 +96,11 @@ namespace Influencers.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult EditArticle()
+        {
+            return View();
+        }
 
         [HttpPost]
         public IActionResult AddArticle([FromForm]AddArticleViewModel model)
@@ -78,9 +119,31 @@ namespace Influencers.Controllers
 
             }
 
-            return View();
+            var newestArticle = articleService.GetNewestAddedArticle(model.Title, model.Content, model.Email);
+
+            return Redirect(Url.Action("ViewArticle", "Article", new { id = newestArticle.Id}));
         }
 
+        [HttpPost]
+        public IActionResult EditArticle([FromForm]EditArticleViewModel model,int id)
+        {
+            //if (!ModelState.IsValid)
+            //{
+
+            //    return View(model);
+            //}
+
+            model.ArticleId = id;
+
+            var authorExists = authorService.VerifyIfAuthorExistsByEmail(model.Email);
+
+            if (authorExists)
+            {
+                articleService.UpdateArticle(model.ArticleId, model.Content);
+            }
+
+            return Redirect(Url.Action("ViewArticle", "Article", new { id = model.ArticleId }));
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

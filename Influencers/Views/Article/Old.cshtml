@@ -1,7 +1,7 @@
 ﻿@model Influencers.BusinessLogic.ViewModels.ArticleViewModels.ArticleViewModel
 
 @{
-    ViewData["Title"] = "Top";
+    ViewData["Title"] = "Old";
 }
 
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
@@ -15,18 +15,17 @@
 
 
 <div class="post-container" style="background-color: #FCFCFC;">
-    <a id="top" asp-action="Top" asp-controller="Article" >
+    <a id="top" asp-action="Top" asp-controller="Article" style="text-decoration: none; color: black;">
         <i class="fas fa-crown fa-2x" style=""></i>
     </a>
 
     <a id="new" asp-action="New" asp-controller="Article" style="text-decoration: none; color: black;">
         <i class="fas fa-clock fa-2x"></i>
     </a>
-
     <a asp-action="Hot" asp-controller="Article" style="text-decoration: none; color: black;">
         <i class="fab fa-hotjar fa-2x"></i>
     </a>
-    <a asp-action="Old" asp-controller="Article" style="text-decoration: none; color: black;">
+    <a asp-action="Old" asp-controller="Article" >
         <i class="fab fa-pagelines fa-2x"></i>
     </a>
 </div>
