@@ -5,22 +5,43 @@
 
 //Upvote/Downvote functionality
 
+var script = document.createElement('script');
+script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';
+document.getElementsByTagName('head')[0].appendChild(script);
+
+var script2 = document.createElement('script2');
+script2.src = 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js';
+document.getElementsByTagName('head')[0].appendChild(script2);
+
 const up_vote_spans = document.getElementsByClassName('up-vote');
 const down_vote_spans = document.getElementsByClassName('down-vote');
 const count = document.getElementsByClassName('number');
 
 let votes = [];
+let cookiesUpvoted = [];
+let cookiesDownvoted = [];
+
+id = -1;
+flag = -1;
+
+function getValues(id, flag) {
+    this.id = id;
+    this.flag = flag;
+}
 
 for (let i = 0; i < count.length; i += 1) {
     const thisUpVoteSpan = up_vote_spans[i];
     const thisDownVoteSpan = down_vote_spans[i];
     votes[i] = { up: false, down: false };
 
+    cookiesUpvoted[i] = Cookies.set('upvoted', '0');
+    cookiesDownvoted[i] = Cookies.set('downvoted', '0');
+
     thisUpVoteSpan.addEventListener('click', handleUpvote.bind(null, i), false);
     thisDownVoteSpan.addEventListener('click', handleDownvote.bind(null, i), false);
 }
 
-function handleUpvote(i,) {
+function handleUpvote(i) {
     const currentVote = votes[i];
     const matchingUpSpan = up_vote_spans[i];
     const matchingDownSpan = down_vote_spans[i];
@@ -43,6 +64,23 @@ function handleUpvote(i,) {
         matchingUpSpan.style.color = 'dimgray';
         currentVote.up = false;
     }
+
+    if (cookiesDownvoted[i] == "downvoted=1; path=/") {
+        flag = 3;
+    } else if (cookiesUpvoted[i] == "upvoted=0; path=/") {
+        flag = 1;
+    } else {
+        flag = 2;
+    }
+
+    if (cookiesUpvoted[i] == "upvoted=0; path=/") {
+        cookiesUpvoted[i] = "upvoted=1; path=/";
+        cookiesDownvoted[i] = "downvoted=0; path=/";
+    } else {
+        cookiesUpvoted[i] = "upvoted=0; path=/";
+    }
+
+    sendVote(id, flag);
 }
 
 function handleDownvote(i) {
@@ -68,4 +106,46 @@ function handleDownvote(i) {
         matchingDownSpan.style.color = 'dimgray';
         currentVote.down = false;
     }
+
+    if (cookiesUpvoted[i] == "upvoted=1; path=/") {
+        flag = 4;
+    } else if (cookiesDownvoted[i] == "downvoted=0; path=/") {
+        flag = 2;
+    } else {
+        flag = 1;
+    }
+
+    if (cookiesDownvoted[i] == "downvoted=0; path=/") {
+        cookiesDownvoted[i] = "downvoted=1; path=/";
+        cookiesUpvoted[i] = "upvoted=0; path=/";
+    } else {
+        cookiesDownvoted[i] = "downvoted=0; path=/";
+    }
+
+    sendVote(id, flag);
 }
+
+function sendVote(id, flag) {
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:44379/api/Voting/AddVote',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            Flag: flag,
+            ArticleId: id
+        }),
+        error: function (err) {
+            //$('#info').html('<p>An error has occurred</p>');
+            console.log(err);
+        },
+        success: function (data) {
+            console.log(data)
+            //var $title = $('<h1>').text(data.talks[0].talk_title);
+            //var $description = $('<p>').text(data.talks[0].talk_description);
+            //$('#info')
+            //    .append($title)
+            //    .append($description);
+        }
+    });
+}
+

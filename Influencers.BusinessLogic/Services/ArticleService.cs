@@ -17,7 +17,7 @@ namespace Influencers.BusinessLogic.Services
             this.articleRepository = articleRepository;
             this.authorRepository = authorRepository;
         }
-        public void UpdateArticleVotes(int articleId, bool flag)
+        public void UpdateArticleVotes(int articleId, int flag)
         {
             articleRepository.UpdateArticleVotes(articleId, flag);
         }
@@ -46,6 +46,11 @@ namespace Influencers.BusinessLogic.Services
         public Article GetArticleById(int id)
         {
             return articleRepository.GetArticleById(id);
+        }
+
+        public IEnumerable<Article> GetPreviewedArticles(IEnumerable<Article> articles)
+        {
+            return articleRepository.GetPreviewedArticles(articles);
         }
     }
 }
