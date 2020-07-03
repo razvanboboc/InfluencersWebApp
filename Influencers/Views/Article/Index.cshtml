@@ -70,7 +70,7 @@
                     @:$(`#article-down-${@item.Id}`).css("color", "dimgray");
                 @:}
 
-                @:if (Cookies.get(@item.Id) == "2") {
+                @:if (Cookies.get(@item.Id) == "0") {
                     @:$(`#article-up-${@item.Id}`).css("color", "dimgray");
                     @:$(`#article-down-${@item.Id}`).css("color", "#3CBC8D");
                 @:}
