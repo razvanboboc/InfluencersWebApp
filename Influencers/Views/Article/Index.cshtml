@@ -19,10 +19,10 @@
         <i class="fas fa-crown fa-2x"></i>
     </a>
 
-    <a asp-action="New" asp-controller="Article" >
+    <a asp-action="New" asp-controller="Article">
         <i class="fas fa-clock fa-2x"></i>
     </a>
-    <a asp-action="Hot" asp-controller="Article" >
+    <a asp-action="Hot" asp-controller="Article">
         <i class="fab fa-hotjar fa-2x"></i>
     </a>
     <a asp-action="Old" asp-controller="Article">
@@ -34,9 +34,9 @@
 {
     <div class="w-auto p-3 post-container" style="background-color: #FCFCFC;">
         <div class="vote vote-container">
-            <span class="up-vote" onclick="getValues(@item.Id, 1)"><i class="fas fa-angle-up"></i></span>
-            <span class="number">@Html.DisplayFor(model => item.Votes)</span>
-            <span class="down-vote" onclick="getValues(@item.Id, 2)"><i class="fas fa-angle-down"></i></span>
+            <span id="article-up-@item.Id" class="up-vote" onclick="setValues(@item.Id, 1)"><i class="fas fa-angle-up"></i></span>
+            <span id="article-counter-@item.Id" class="number">@Html.DisplayFor(model => item.Votes)</span>
+            <span id="article-down-@item.Id" class="down-vote" onclick="setValues(@item.Id, 2)"><i class="fas fa-angle-down"></i></span>
         </div>
         <div class="content" style=background-color: white;">
             <a asp-action="ViewArticle" asp-route-id="@item.Id" asp-controller="Article" style="text-decoration: none; color: black;">
@@ -57,3 +57,28 @@
     </div>
 }
 
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+            @foreach(var item in Model.Articles)
+            {
+                @:if (Cookies.get(@item.Id) == "1") {
+                    @:$(`#article-up-${@item.Id}`).css("color", "#3CBC8D");
+                    @:$(`#article-down-${@item.Id}`).css("color", "dimgray");
+                @:}
+
+            }
+
+            @foreach(var item in Model.Articles)
+            {
+                @:if (Cookies.get(@item.Id) == "2") {
+                    @:$(`#article-up-${@item.Id}`).css("color", "dimgray");
+                    @:$(`#article-down-${@item.Id}`).css("color", "#3CBC8D");
+                @:}
+
+            }
+        });
+    </script>
+}

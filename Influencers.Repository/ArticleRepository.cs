@@ -31,23 +31,7 @@ namespace Influencers.Repository.Abstractions
         public void UpdateArticleVotes(int articleId, int flag)
         {
             var article = dbContext.Article.Where(article => article.Id == articleId).SingleOrDefault();
-
-            switch (flag)
-            {
-                case 1:
-                    article.Votes++;
-                    break;
-                case 2:
-                    article.Votes--;
-                    break;
-                case 3:
-                    article.Votes += 2;
-                    break;
-                case 4:
-                    article.Votes -= 2;
-                    break;
-            };
-
+            article.Votes += flag;
             dbContext.SaveChanges();
         }
 

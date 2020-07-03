@@ -3,34 +3,36 @@
     ViewData["Title"] = "Edit Article";
 }
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 
-    <form asp-action="EditArticle" method="post">
-        <input type="hidden" asp-for="ArticleId" />
-        <div class="row">
-            <div class="col-2">
-                Email Adress
-            </div>
-            <div class="col-10">
-                <input class="form-control" type="text" asp-for="Email" />
-            </div>
+<form asp-action="EditArticle" method="post">
+    <input type="hidden" asp-for="ArticleId" />
+    <div class="row">
+        <div class="col-2">
+            Email Adress
         </div>
-        <br />
-        <div class="row">
-            <div class="col-2">
-                Content
-            </div>
-            <div class="col-10">
-                <input class="form-control" type="text" asp-for="Content">
-            </div>
+        <div class="col-10">
+            <input class="form-control" type="text" asp-for="Email" />
         </div>
-        <br />
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-2">
+            Content
+        </div>
+        <div class="col-10">
+            <input class="form-control" type="text" asp-for="Content">
+        </div>
+    </div>
+    <br />
 
-        <div class="row">
-            <div class="col-10"></div>
-            <div class="col-2">
-                <button type="submit" class="btn btn-primary">Edit</button>
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary">Edit</button>
 
-            </div>
         </div>
-    </form>
+    </div>
+</form>
 
