@@ -64,21 +64,19 @@
 
             @foreach(var item in Model.Articles)
             {
+
                 @:if (Cookies.get(@item.Id) == "1") {
                     @:$(`#article-up-${@item.Id}`).css("color", "#3CBC8D");
                     @:$(`#article-down-${@item.Id}`).css("color", "dimgray");
                 @:}
 
-            }
-
-            @foreach(var item in Model.Articles)
-            {
                 @:if (Cookies.get(@item.Id) == "2") {
                     @:$(`#article-up-${@item.Id}`).css("color", "dimgray");
                     @:$(`#article-down-${@item.Id}`).css("color", "#3CBC8D");
                 @:}
 
             }
+
         });
     </script>
 }
