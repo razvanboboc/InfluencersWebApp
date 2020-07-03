@@ -60,5 +60,46 @@ namespace Influencers.Repository.Abstractions
 
             return articles; 
         }
+
+        public IEnumerable<Article> OrderArticlesDescendinglyByVotes(IEnumerable<Article> articles)
+        {
+            articles = articles.OrderByDescending(article => article.Votes);
+
+            return articles;
+        }
+
+        public IEnumerable<Article> OrderArticleMostRecent(IEnumerable<Article> articles)
+        {
+            articles = articles.OrderByDescending(article => article.AddedTime);
+
+            return articles;
+        }
+
+        public IEnumerable<Article> CategorizeHot(IEnumerable<Article> articles)
+        {
+            List<Article> articlesList = articles.ToList();
+ 
+            foreach(Article article in articlesList.ToList())
+            {
+                TimeSpan diff = DateTime.Now - article.AddedTime;
+                double hours = diff.TotalHours;
+
+                if(!(hours < 24 && article.Votes > 5))
+                {
+                    articlesList.Remove(article);
+                }
+            }
+
+            return articlesList.AsEnumerable();
+        }
+
+
+        public Article GetNewestAddedArticle(string title, string content, string email)
+        {
+            return dbContext.Article.Where(a => a.Title == title)
+                .Where(a => a.Content == content)
+                .Where(a => a.Author.Email == email)
+                .SingleOrDefault();
+        }
     }
 }

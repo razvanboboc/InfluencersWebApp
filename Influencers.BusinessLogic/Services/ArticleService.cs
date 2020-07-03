@@ -25,7 +25,7 @@ namespace Influencers.BusinessLogic.Services
         public IEnumerable<Article> GetAll()
         {
             var articles = articleRepository.GetAll();
-            
+
             return articles;
         }
 
@@ -40,7 +40,16 @@ namespace Influencers.BusinessLogic.Services
                 AddedTime = DateTime.Now,
                 Author = author,
                 Votes = 0,
-            }) ;
+            });
+        }
+
+        public void UpdateArticle(int articleId, string content)
+        {
+            var article = articleRepository.GetArticleById(articleId);
+
+            article.Content = content;
+
+            articleRepository.Update(article);
         }
 
         public Article GetArticleById(int id)
@@ -52,5 +61,25 @@ namespace Influencers.BusinessLogic.Services
         {
             return articleRepository.GetPreviewedArticles(articles);
         }
+
+        public IEnumerable<Article> OrderArticlesDescendinglyByVotes(IEnumerable<Article> articles)
+        {
+            return articleRepository.OrderArticlesDescendinglyByVotes(articles);
+        }
+
+        public IEnumerable<Article> OrderArticleMostRecent(IEnumerable<Article> articles)
+        {
+            return articleRepository.OrderArticleMostRecent(articles);
+        }
+
+        public IEnumerable<Article> CategorizeHot(IEnumerable<Article> articles)
+        {
+            return articleRepository.CategorizeHot(articles);
+        }
+        public Article GetNewestAddedArticle(string title, string content, string email)
+        {
+            return articleRepository.GetNewestAddedArticle(title, content, email);
+        }
+
     }
 }
