@@ -22,60 +22,32 @@ namespace Influencers.Controllers
             this.authorService = authorService;
         }
 
-
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(string flag)
         {
             var articles = articleService.GetAll();
 
             var previewedArticles = articleService.GetPreviewedArticles(articles);
+            
+            switch (flag)
+            {
+                case "top":
+                    previewedArticles = articleService.OrderArticlesDescendinglyByVotes(previewedArticles);
+                    break;
+                case "new":
+                    previewedArticles = articleService.OrderArticleMostRecent(previewedArticles);
+                    break;
+                case "hot":
+                    previewedArticles = articleService.CategorizeHot(previewedArticles);
+                    break;
+                case "old":
+                    previewedArticles = previewedArticles.OrderBy(article => article.AddedTime);
+                    break;
+            };
 
             return View(new ArticleViewModel { Articles = previewedArticles });
         }
-        [HttpGet]
-        public IActionResult Top()
-        {
-            var articles = articleService.GetAll();
-            
-            var previewedArticles = articleService.GetPreviewedArticles(articles);
 
-            var orderedArticlesByTop = articleService.OrderArticlesDescendinglyByVotes(previewedArticles);
-
-            return View(new ArticleViewModel { Articles = orderedArticlesByTop });
-        }
-
-        [HttpGet]
-        public IActionResult New()
-        {
-            var articles = articleService.GetAll();
-
-            var previewedArticles = articleService.GetPreviewedArticles(articles);
-
-            var orderedArticlesByNew = articleService.OrderArticleMostRecent(previewedArticles);
-
-            return View(new ArticleViewModel { Articles = orderedArticlesByNew });
-        }
-
-        [HttpGet]
-        public IActionResult Old()
-        {
-            var articles = articleService.GetAll();
-
-            var previewedArticles = articleService.GetPreviewedArticles(articles);
-
-            return View(new ArticleViewModel { Articles = previewedArticles.OrderBy(article => article.AddedTime) });
-        }
-
-        [HttpGet]
-        public IActionResult Hot()
-        {
-            var articles = articleService.GetAll();
-
-            var previewedArticles = articleService.GetPreviewedArticles(articles);
-
-            var categorizedArticles = articleService.CategorizeHot(previewedArticles);
-
-            return View(new ArticleViewModel { Articles = categorizedArticles});
-        }
 
         [HttpGet]
         public IActionResult ViewArticle([FromRoute]int id)

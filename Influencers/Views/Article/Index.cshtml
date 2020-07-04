@@ -15,17 +15,18 @@
 
 
 <div class="post-container" style="background-color: #FCFCFC;">
-    <a asp-action="Top" asp-controller="Article">
+
+    <a href='@Url.Action("Index", "Article", new { flag = "top" })'>
         <i class="fas fa-crown fa-2x"></i>
     </a>
 
-    <a asp-action="New" asp-controller="Article">
+    <a href='@Url.Action("Index", "Article", new { flag = "new" })'>
         <i class="fas fa-clock fa-2x"></i>
     </a>
-    <a asp-action="Hot" asp-controller="Article">
+    <a href='@Url.Action("Index", "Article", new { flag = "hot" })'>
         <i class="fab fa-hotjar fa-2x"></i>
     </a>
-    <a asp-action="Old" asp-controller="Article">
+    <a href='@Url.Action("Index", "Article", new { flag = "old" })'>
         <i class="fab fa-pagelines fa-2x"></i>
     </a>
 
