@@ -7,5 +7,7 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
     public class ArticleViewModel
     {
         public IEnumerable<Article> Articles { get; set; }
+
+        public string Top = "top";
     }
 }
