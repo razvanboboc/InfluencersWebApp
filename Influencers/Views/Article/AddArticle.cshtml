@@ -3,55 +3,55 @@
     ViewData["Title"] = "Add Article";
 }
 
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <form asp-action="AddArticle" method="post">
-        <div class="row">
-            <div class="col-2">
-                E-mail
-            </div>
-            <div class="col-10">
-
-                <input class="form-control" type="email" id="email" asp-for="Email">
-            </div>
+<form asp-action="AddArticle" method="post">
+    <div class="row">
+        <div class="col-2">
+            E-mail
         </div>
-        <br />
-        <div class="row">
-            <div class="col-2">
-                Title
-            </div>
-            <div class="col-10">
-                <input class="form-control" type="text" asp-for="Title " />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
+        <div class="col-10">
+
+            <input class="form-control" type="email" id="email" asp-for="Email">
         </div>
-        <br />
-        <div class="row">
-            <div class="col-2">
-                Content
-            </div>
-            <div class="col-10">
-                <input class="form-control" type="text" asp-for="Content">
-            </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-2">
+            Title
         </div>
-        <br />
-        @*<div class="row">
-            <div class="col-2">
-                Tags
-            </div>
-            <div class="col-10">
-                <input class="form-control" type="text" asp-for="Tags">
-            </div>
-        </div>*@
-
-
-        <br />
-
-        <div class="row">
-            <div class="col-10"></div>
-            <div class="col-2">
-                <button type="submit" class="btn btn-primary" href="@Url.Action("Index", "Article")">Post</button>
-
-            </div>
+        <div class="col-10">
+            <input class="form-control" type="text" asp-for="Title " />
+            <span asp-validation-for="Title" class="text-danger"></span>
         </div>
-    </form>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-2">
+            Content
+        </div>
+        <div class="col-10">
+            <input class="form-control" type="text" asp-for="Content">
+        </div>
+    </div>
+    <br />
+
+
+    <div class="ui-widget">
+        <label for="tags">Tags: </label>
+        <input id="tags">
+    </div>
+
+
+    <br />
+
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary" href="@Url.Action(" Index", "Article" )">Post</button>
+
+        </div>
+    </div>
+</form>
 
