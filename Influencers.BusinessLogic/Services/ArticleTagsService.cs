@@ -19,6 +19,19 @@ namespace Influencers.BusinessLogic.Services
         {
             articleTagsRepository.Add(new ArticleTags { Article = article, ArticleId = article.Id, Tag = tag, TagId = tag.Id});
         }
+        public IEnumerable<Tags> GetTagsOfArticleById(int articleId)
+        {
+            return articleTagsRepository.GetTagsOfArticleById(articleId);
+        }
 
+        public IEnumerable<ArticleTags> GetAll()
+        {
+            return articleTagsRepository.GetAll();
+        }
+
+        public IEnumerable<Article> GetArticlesIncludingTags()
+        {
+            return articleTagsRepository.GetArticlesIncludingTags();
+        }
     }
 }

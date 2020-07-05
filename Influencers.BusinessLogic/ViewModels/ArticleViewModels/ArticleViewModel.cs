@@ -8,6 +8,6 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
     {
         public IEnumerable<Article> Articles { get; set; }
 
-        public string Top = "top";
+
     }
 }

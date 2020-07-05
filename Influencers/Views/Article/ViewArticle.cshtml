@@ -10,8 +10,13 @@
 <p>@Model.Article.Content</p>
 <br />
 
-<p>Posted at @Model.Article.AddedTime</p>
+<p>Posted at @Model.Article.AddedTime</p> 
 
 <a href='@Url.Action("Index", "Article")'>Back</a>
+
+@foreach(var item in Model.Tags)
+{
+    <span>@item.Name</span> 
+}
 <br />
 

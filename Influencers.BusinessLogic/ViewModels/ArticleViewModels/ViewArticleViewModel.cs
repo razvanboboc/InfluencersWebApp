@@ -8,5 +8,7 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
     public class ViewArticleViewModel
     {
         public Article Article { get; set; }
-    }
+
+        public IEnumerable<Tags> Tags { get; set; }
+     }
 }

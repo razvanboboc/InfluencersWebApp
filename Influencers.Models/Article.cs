@@ -13,5 +13,7 @@ namespace Influencers.Models
         public int? Votes { get; set; }
 
         public virtual Author Author { get; set; }
+
+        public ICollection<ArticleTags> Tags { get; set; }
     }
 }
