@@ -1,11 +1,13 @@
 ﻿using Influencers.BusinessLogic.Services;
 using Influencers.BusinessLogic.ViewModels.ArticleViewModels;
 using Influencers.Models;
+using Influencers.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Influencers.Controllers
 {
@@ -14,12 +16,16 @@ namespace Influencers.Controllers
         private readonly ILogger<ArticleController> _logger;
         private readonly ArticleService articleService;
         private readonly AuthorService authorService;
+        private readonly TagService tagService;
+        private readonly ArticleTagsService articleTagsService;
 
-        public ArticleController(ILogger<ArticleController> logger, ArticleService articleService, AuthorService authorService)
+        public ArticleController(ILogger<ArticleController> logger, ArticleService articleService, AuthorService authorService, TagService tagService, ArticleTagsService articleTagsService)
         {
             _logger = logger;
             this.articleService = articleService;
             this.authorService = authorService;
+            this.tagService = tagService;
+            this.articleTagsService = articleTagsService;
         }
 
         [HttpGet]
@@ -87,8 +93,21 @@ namespace Influencers.Controllers
 
             if (authorExists)
             {
+
+                MatchCollection extractedHashtags = tagService.FilterHashtags(model.Tags);
+
+                tagService.AddTags(extractedHashtags);
+  
                 articleService.AddArticle(model.Title, model.Content, model.Email);
 
+                var recentlyCreatedArticle = articleService.GetNewestAddedArticle(model.Title, model.Content, model.Email);
+
+                foreach(var hashtag in extractedHashtags)
+                {
+                    var tag = tagService.GetTagByName(hashtag.ToString());
+
+                    articleTagsService.Add(tag, recentlyCreatedArticle);
+                }
             }
 
             var newestArticle = articleService.GetNewestAddedArticle(model.Title, model.Content, model.Email);
@@ -125,3 +144,4 @@ namespace Influencers.Controllers
         }
     }
 }
+  

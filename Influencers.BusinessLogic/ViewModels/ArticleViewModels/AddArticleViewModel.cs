@@ -17,8 +17,7 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
         [Required]
         public string Content { get; set; }
 
-        [Required]
-        [MaxLength(5)]
-        public List<Tags> Tags { get; set; }
+        [Required(ErrorMessage ="Please enter the hashtags")]
+        public string Tags { get; set; }
     }
 }
