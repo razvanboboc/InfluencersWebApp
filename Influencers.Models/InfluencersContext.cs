@@ -24,7 +24,7 @@ namespace Influencers.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-MKTUAUF\\SQLEXPRESS;Initial Catalog=Influencers;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-MKTUAUF\\SQLEXPRESS;Initial Catalog=Influencers;Integrated Security=True;");
             }
         }
 
@@ -43,15 +43,15 @@ namespace Influencers.Models
                 entity.HasOne(d => d.Author)
                     .WithMany(p => p.Article)
                     .HasForeignKey(d => d.AuthorId)
-                    .HasConstraintName("FK__Article__Author___3B75D760");
+                    .HasConstraintName("FK__Article__Author___398D8EEE");
             });
 
             modelBuilder.Entity<ArticleTags>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey( x => new {x.ArticleId, x.TagId });
 
                 entity.HasIndex(e => new { e.ArticleId, e.TagId })
-                    .HasName("UQ__ArticleT__7D0083165A2DC251")
+                    .HasName("UQ__ArticleT__7D0083163AC3ED2A")
                     .IsUnique();
 
                 entity.Property(e => e.ArticleId).HasColumnName("Article_Id");
@@ -62,13 +62,13 @@ namespace Influencers.Models
                     .WithMany()
                     .HasForeignKey(d => d.ArticleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ArticleTa__Artic__403A8C7D");
+                    .HasConstraintName("FK__ArticleTa__Artic__3E52440B");
 
                 entity.HasOne(d => d.Tag)
                     .WithMany()
                     .HasForeignKey(d => d.TagId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ArticleTa__Tag_I__412EB0B6");
+                    .HasConstraintName("FK__ArticleTa__Tag_I__3F466844");
             });
 
             modelBuilder.Entity<Author>(entity =>
@@ -84,8 +84,6 @@ namespace Influencers.Models
 
             modelBuilder.Entity<Tags>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Name)
                     .HasMaxLength(255)
                     .IsUnicode(false);
