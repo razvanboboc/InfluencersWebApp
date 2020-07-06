@@ -118,3 +118,18 @@ function sendVote(id, flag) {
     });
 }
 
+//upvote/downvote view article
+
+function colorVotes(articleId) {
+
+    if (Cookies.get(articleId) == "1") {
+        $(`#article-up-${articleId}`).css("color", "#3CBC8D");
+        $(`#article-down-${articleId}`).css("color", "dimgray");
+    }
+
+    if (Cookies.get(articleId) == "0") {
+        $(`#article-up-${articleId}`).css("color", "dimgray");
+        $(`#article-down-${articleId}`).css("color", "#3CBC8D");
+    }
+
+}
