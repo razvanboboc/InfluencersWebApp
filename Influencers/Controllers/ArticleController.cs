@@ -5,6 +5,8 @@ using Influencers.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -36,6 +38,15 @@ namespace Influencers.Controllers
 
             var previewedArticles = articleService.GetPreviewedArticles(articles);
 
+            List<ViewArticleViewModel> articlesWithTags = new List<ViewArticleViewModel>();
+
+            foreach (var article in previewedArticles)
+            {
+                var tags = articleTagsService.GetTagsOfArticleById(article.Id);
+
+                articlesWithTags.Add(new ViewArticleViewModel { Article = article, Tags = tags });
+            }
+
             switch (flag)
             {
                 case "top":
@@ -52,7 +63,7 @@ namespace Influencers.Controllers
                     break;
             };
 
-            return View(new ArticleViewModel { Articles = previewedArticles});
+            return View(new ArticleListViewModel { Articles = articlesWithTags });
         }
 
 

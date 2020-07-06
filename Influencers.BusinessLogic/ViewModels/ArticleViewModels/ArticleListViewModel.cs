@@ -4,10 +4,9 @@ using System.Text;
 using Influencers.Models;
 namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
 {
-    public class ArticleViewModel
+    public class ArticleListViewModel
     {
-        public IEnumerable<Article> Articles { get; set; }
-
+        public List<ViewArticleViewModel> Articles { get; set; }
 
     }
 }
