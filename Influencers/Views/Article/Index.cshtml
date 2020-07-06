@@ -53,15 +53,7 @@
                     @Html.DisplayFor(model => item.Content)...
                 </p>
             </a>
-            @*@foreach(var articleTag in ViewBag.ArticleTags)
-            {
-                if(articleTag.ArticleId == item.Id)
-                {
-                    <span>articleTag.Tag.Name</span>
-                }
-            }*@
 
-            <span>@Html.DisplayFor(model => item.Tags.Select(row => row.Tag.Name))</span>
             <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@item.Id">Edit</a>
         </div>
 

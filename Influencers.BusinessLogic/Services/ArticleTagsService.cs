@@ -29,7 +29,7 @@ namespace Influencers.BusinessLogic.Services
             return articleTagsRepository.GetAll();
         }
 
-        public IEnumerable<Article> GetArticlesIncludingTags()
+        public IEnumerable<ArticleTags> GetArticlesIncludingTags()
         {
             return articleTagsRepository.GetArticlesIncludingTags();
         }

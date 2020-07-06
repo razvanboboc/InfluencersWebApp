@@ -31,12 +31,11 @@ namespace Influencers.Controllers
         [HttpGet]
         public IActionResult Index(string flag)
         {
-            var articles = articleTagsService.GetArticlesIncludingTags();
+            
+            var articles = articleService.GetAll();
 
             var previewedArticles = articleService.GetPreviewedArticles(articles);
 
-            var articleTags = articleTagsService.GetAll();
-            
             switch (flag)
             {
                 case "top":
@@ -52,20 +51,6 @@ namespace Influencers.Controllers
                     previewedArticles = previewedArticles.OrderBy(article => article.AddedTime);
                     break;
             };
-
-            //var articlesWithTags = articleTags.Join(
-            //    articles,
-            //    articleTags => articleTags.ArticleId,
-            //    previewedArticles => previewedArticles.Id,
-            //    (articleTags, previewedArticles) => new
-            //    {
-            //        Id = previewedArticles.Id,
-            //        Title = previewedArticles.Title,
-            //        Content = previewedArticles.Content,
-            //        AddedTime = previewedArticles.AddedTime,
-            //        Votes = previewedArticles.Votes,
-            //        Tag = articleTags.Tag
-            //    });
 
             return View(new ArticleViewModel { Articles = previewedArticles});
         }
