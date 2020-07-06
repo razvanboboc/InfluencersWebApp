@@ -20,14 +20,16 @@ namespace Influencers.Controllers
         private readonly AuthorService authorService;
         private readonly TagService tagService;
         private readonly ArticleTagsService articleTagsService;
+        private readonly CommentService commentService;
 
-        public ArticleController(ILogger<ArticleController> logger, ArticleService articleService, AuthorService authorService, TagService tagService, ArticleTagsService articleTagsService)
+        public ArticleController(ILogger<ArticleController> logger, ArticleService articleService, AuthorService authorService, TagService tagService, ArticleTagsService articleTagsService,CommentService commentService)
         {
             _logger = logger;
             this.articleService = articleService;
             this.authorService = authorService;
             this.tagService = tagService;
             this.articleTagsService = articleTagsService;
+            this.commentService = commentService;
         }
 
         [HttpGet]
@@ -74,7 +76,9 @@ namespace Influencers.Controllers
 
             var tags = articleTagsService.GetTagsOfArticleById(id);
 
-            return View(new ViewArticleViewModel { Article = article , Tags = tags});
+            var comments = commentService.GetCommentsByArticleId(id);
+
+            return View(new ViewArticleViewModel { Article = article , Tags = tags, Comments = comments});
         }
 
         [HttpGet]

@@ -1,0 +1,43 @@
+﻿@model Influencers.BusinessLogic.ViewModels.CommentViewModels.AddCommentViewModel
+@{
+    ViewData["Title"] = "Add Comment";
+}
+
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<form asp-action="AddComment" asp-controller="Comment" method="post">
+    <input type="hidden" asp-for="ArticleId" />
+    <div class="row">
+        <div class="col-2">
+            E-mail
+        </div>
+        <div class="col-10">
+
+            <input class="form-control" type="email" id="email" asp-for="Email">
+        </div>
+    </div>
+    <br />
+
+    <br />
+    <div class="row">
+        <div class="col-2">
+            Content
+        </div>
+        <div class="col-10">
+            <input class="form-control" type="text" asp-for="Content">
+        </div>
+    </div>
+    <br />
+
+    <br />
+
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary" href="@Url.Action("AddComment", "Comment")">Post</button>
+
+        </div>
+    </div>
+</form>
+
