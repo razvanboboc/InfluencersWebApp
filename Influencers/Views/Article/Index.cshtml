@@ -38,7 +38,7 @@
         <div class="vote vote-container">
             <span id="article-up-@article.Article.Id" class="up-vote" onclick="setValues(@article.Article.Id, 1)"><i class="fas fa-angle-up"></i></span>
             <span id="article-counter-@article.Article.Id" class="number">@Html.DisplayFor(model => article.Article.Votes)</span>
-            <span id="article-down-@article.Article.Id" class="down-vote" onclick="setValues(@article.Article.Id, 2)"><i class="fas fa-angle-down"></i></span>
+            <span id="article-down-@article.Article.Id" class="down-vote" onclick=" setValues(@article.Article.Id, 2)"><i class="fas fa-angle-down"></i></span>
         </div>
         <div class="content" style=background-color: white;">
             <a asp-action="ViewArticle" asp-route-id="@article.Article.Id" asp-controller="Article" style="text-decoration: none; color: black;">

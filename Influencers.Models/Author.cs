@@ -8,6 +8,7 @@ namespace Influencers.Models
         public Author()
         {
             Article = new HashSet<Article>();
+            Comment = new HashSet<Comment>();
         }
 
         public int Id { get; set; }
@@ -16,5 +17,6 @@ namespace Influencers.Models
         public int? Votes { get; set; }
 
         public virtual ICollection<Article> Article { get; set; }
+        public virtual ICollection<Comment> Comment { get; set; }
     }
 }
