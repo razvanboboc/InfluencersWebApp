@@ -42,11 +42,13 @@ namespace Influencers
             services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<IArticleTagsRepository, ArticleTagsRepository>();
 
 
             services.AddScoped<ArticleService>();
             services.AddScoped<AuthorService>();
             services.AddScoped<TagService>();
+            services.AddScoped<ArticleTagsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
