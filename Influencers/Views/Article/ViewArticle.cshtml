@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/homepage.css">
 </head>
-<div class="w-auto p-3 post-container" style="background-color: #FCFCFC;">
+<div class="w-auto p-3 post-container2" style="background-color: #FCFCFC;">
     <div class="vote vote-container">
         <span id="article-up-@Model.Article.Id" class="up-vote" onclick="setValues(@Model.Article.Id, 1)"><i class="fas fa-angle-up"></i></span>
         <span id="article-counter-@Model.Article.Id" class="number">@Html.DisplayFor(model => Model.Article.Votes)</span>
@@ -63,7 +63,14 @@
         }
     </div>
 
+
 </div>
+
+<br/>
+
+<a class="btn btn-primary btn-lg btn-block" href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id })' >
+    Comment on this post
+</a>
 
 @section scripts{
 
@@ -73,3 +80,4 @@
         $(document).ready(colorVotes(articleId));
     </script>
 }
+

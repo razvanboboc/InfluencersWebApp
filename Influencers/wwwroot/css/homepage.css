@@ -24,6 +24,14 @@
     border-radius:8px;
 }
 
+.post-container2 {
+    word-wrap: break-word;
+    overflow: auto;
+    border: 1px gray solid;
+    padding: 50px;
+    border-radius: 8px;
+}
+
 .post-container:hover {
     border: 1px solid black;
     border-radius: 8px;
@@ -57,4 +65,12 @@
 a {
     
     text-decoration: none; /* no underline */
+}
+
+.center{
+    align-items: flex-start;
+}
+
+.right{
+    right: 3000px;
 }
