@@ -3,33 +3,28 @@
     ViewData["Title"] = "Join Influencers";
 }
 
-<h1>Join Influencers</h1>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<form asp-action="JoinInfluencers" method="post">
+
+<form class="w3-container w3-card-4" asp-action="JoinInfluencers" method="post">
+    <h2 class="w3-text-blue">Join influencers</h2>
     <div class="row">
-        <div class="col-2">
-            E-mail
-        </div>
-        <div class="col-10">
+        <div class="col-12">
+            <label class="w3-text-blue"><b>Email</b></label>
             <input class="form-control" type="email" asp-for="Email" required>
         </div>
     </div>
     <br />
+
     <div class="row">
-        <div class="col-2">
-            Nickname
-        </div>
-        <div class="col-10">
-            <input class="form-control" type="text" asp-for="Nickname " required/>
+        <div class="col-12">
+            <label class="w3-text-blue"><b>Nickname</b></label>
+            <input class="form-control" type="text" asp-for="Nickname " required />
         </div>
     </div>
     <br />
 
-    <div class="row">
-        <div class="col-10"></div>
-        <div class="col-2">
-            <button type="submit" class="btn btn-primary" href="@Url.Action("Index", "Article")">Join</button>
+    <p><button type="submit" class="btn btn-primary w3-btn w3-blue" href="@Url.Action("Index", "Article")">Join</button></p>
 
-        </div>
-    </div>
 </form>

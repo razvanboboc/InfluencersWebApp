@@ -6,56 +6,44 @@
 <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<form asp-action="AddArticle" method="post">
+<form class="w3-container w3-card-4" asp-action="AddArticle" method="post">
+    <h2 class="w3-text-blue">Add a new article</h2>
     <div class="row">
-        <div class="col-2">
-            E-mail
-        </div>
-        <div class="col-10">
-
-            <input class="form-control" type="email" id="email" asp-for="Email">
+        <div class="col-12">
+            <label class="w3-text-blue"><b>Email</b></label>
+            <input class="form-control w3-input w3-border" type="email" id="email" asp-for="Email">
         </div>
     </div>
     <br />
     <div class="row">
-        <div class="col-2">
-            Title
-        </div>
-        <div class="col-10">
-            <input class="form-control" type="text" asp-for="Title " />
+        <div class="col-12">
+            <label class="w3-text-blue"><b>Title</b></label>
+            <input class="form-control w3-input w3-border" type="text" asp-for="Title "/>
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
     </div>
     <br />
+
     <div class="row">
-        <div class="col-2">
-            Content
-        </div>
-        <div class="col-10">
-            <input class="form-control" type="text" asp-for="Content">
+        <div class="col-12">
+            <label class="w3-text-blue"><b>Content</b></label>
+            <textarea class="w3-input w3-border" asp-for="Content"></textarea>
         </div>
     </div>
     <br />
 
     <div class="row">
-        <div class="col-2">
-            Tags
-        </div>
-        <div class="col-10">
-            <input class="form-control" type="text" asp-for="Tags">
+        <div class="col-12">
+            <label class="w3-text-blue"><b>Tags</b></label>
+            <input class="form-control w3-input w3-border" type="text" asp-for="Tags" placeholder="Please write at least one tag like so '#tag'... ">
         </div>
     </div>
 
 
     <br />
 
-    <div class="row">
-        <div class="col-10"></div>
-        <div class="col-2">
-            <button type="submit" class="btn btn-primary" href="@Url.Action(" Index", "Article" )">Post</button>
-
-        </div>
-    </div>
+    <p><button type="submit" class="btn btn-primary w3-btn w3-blue" href="@Url.Action(" Index", "Article" )">Post</button></p>
 </form>
 

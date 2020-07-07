@@ -3,67 +3,62 @@
     ViewData["Title"] = "Ranking";
 }
 
-<h1>Ranking</h1>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<div class="c">
-    <table class="tableFixHead" border="1">
-        <thead>
+<h2 class="w3-text-blue">Rankings</h2>
+
+<table class="tableFixHead w3-table-all w3-card-4" border="1">
+    <thead>
+        <tr class="w3-text-blue">
+            <th>
+                @Html.DisplayName("Nickname")
+            </th>
+
+            <th>
+                @Html.DisplayName("Karma")
+            </th>
+
+            <th>
+                @Html.DisplayName("Email")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Authors.Count() == 0)
+        {
             <tr>
-                <th>
-                    @Html.DisplayName("Nickname")
-                </th>
-
-                <th>
-                    @Html.DisplayName("Karma")
-                </th>
-
-                <th>
-                   
-                </th>
+                <td colspan="4">
+                    No authors available
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @if (Model.Authors.Count() == 0)
+        }
+        else
+        {
+            @foreach (var item in Model.Authors)
             {
-                <tr>
-                    <td colspan="4">
-                        No authors available
+                <tr class="w3-hover-blue">
+                    <td>
+                        @Html.DisplayFor(model => item.Nickname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Votes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Email)
                     </td>
                 </tr>
             }
-            else
-            {
-                @foreach (var item in Model.Authors)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(model => item.Nickname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.Votes)
-                        </td>
-                        <td>
-                            <a asp-action="ViewAnnouncement" asp-route-id="@item.Id" asp-controller="Home">View</a>
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-
-</div>
+        }
+    </tbody>
+</table>
 
 <style>
     .tableFixHead {
         overflow-y: auto;
         height: 100px;
+        /*counter-reset: rowNumber;*/
     }
-
-        .tableFixHead thead th {
-            position: sticky;
-            top: 0;
-        }
-
     /* Just common table stuff. Really. */
     table {
         border-collapse: collapse;
@@ -85,3 +80,13 @@
         width: 35%;
     }
 </style>
+
+<script>
+    var table = document.getElementsByTagName('table')[0],
+        rows = table.getElementsByTagName('tr'),
+        text = 'textContent' in document ? 'textContent' : 'innerText';
+
+    for (var i = 1, len = rows.length; i < len; i++) {
+        rows[i].children[0][text] = i + '. ' + rows[i].children[0][text];
+    }
+</script>
