@@ -9,9 +9,4 @@
     <ProjectReference Include="..\Influencers.Repository\Influencers.Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Filters\ArticleFilters\" />
-    <Folder Include="Filters\RankingFilters\" />
-  </ItemGroup>
-
 </Project>

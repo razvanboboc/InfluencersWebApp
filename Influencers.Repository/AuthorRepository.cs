@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Influencers.Repository
@@ -19,6 +20,17 @@ namespace Influencers.Repository
             var article = dbContext.Article.Where(a => a.Id== articleId).SingleOrDefault();
 
             var authorId =  article.AuthorId;
+
+            var author = dbContext.Author.Where(a => a.Id == authorId).SingleOrDefault();
+
+            return author;
+        }
+
+        public Author GetAuthorByCommentId(int commentId)
+        {
+            var comment = dbContext.Comment.Where(c => c.Id == commentId).SingleOrDefault();
+
+            var authorId = comment.AuthorId;
 
             var author = dbContext.Author.Where(a => a.Id == authorId).SingleOrDefault();
 
@@ -52,6 +64,31 @@ namespace Influencers.Repository
                     author.Votes -= 2;
                     break;
             };
+
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateAuthorVotes(int authorId)
+        {
+            var author = dbContext.Author
+                .Where(author => author.Id == authorId)
+                .Include(author => author.Comment)
+                .Include(author => author.Article)
+                .FirstOrDefault();
+
+            var totalVotes = 0;
+
+            foreach(Comment comment in author.Comment)
+            {
+                totalVotes += comment.Votes;
+            }
+
+            foreach (Article article in author.Article)
+            {
+                totalVotes += article.Votes;
+            }
+
+            author.Votes = totalVotes;
 
             dbContext.SaveChanges();
         }

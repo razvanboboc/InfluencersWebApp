@@ -44,7 +44,7 @@ namespace Influencers.Controllers
             {
                 var article = articleService.GetArticleById(model.ArticleId);
 
-                var author = authorService.GetAuthorByArticleId(model.ArticleId);
+                var author = authorService.GetAuthorByEmail(model.Email);
 
                 commentService.Add(article, author, model.Content);
 

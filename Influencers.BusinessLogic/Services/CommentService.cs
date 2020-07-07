@@ -26,5 +26,10 @@ namespace Influencers.BusinessLogic.Services
                 Author = author, AuthorId = author.Id, 
                 Content = content, AddedTime = DateTime.Now, Votes = 0 });
         }
+
+        public void UpdateCommentVotes(int commentId, int flag)
+        {
+            commentRepository.UpdateCommentVotes(commentId, flag);
+        }
     }
 }

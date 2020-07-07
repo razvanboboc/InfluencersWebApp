@@ -52,9 +52,9 @@
 
     <div class="w-75 p-3 comment-container" style="background-color: #FCFCFC;">
         <div class="vote vote-container">
-            <span id="article-up-@comment.Id" class="up-vote" onclick="setValues(@comment.Id, 1)"><i class="fas fa-angle-up"></i></span>
-            <span id="article-counter-@comment.Id" class="number">@Html.DisplayFor(model => comment.Votes)</span>
-            <span id="article-down-@comment.Id" class="down-vote" onclick=" setValues(@comment.Id, 2)"><i class="fas fa-angle-down"></i></span>
+            <span id="comment-up-@comment.Id" class="up-vote" onclick="setCommentValues(@comment.Id, 1)"><i class="fas fa-angle-up"></i></span>
+            <span id="comment-counter-@comment.Id" class="number">@Html.DisplayFor(model => comment.Votes)</span>
+            <span id="comment-down-@comment.Id" class="down-vote" onclick=" setCommentValues(@comment.Id, 2)"><i class="fas fa-angle-down"></i></span>
         </div>
         <div class="content" style=background-color: white;">
             <div class="posted">
@@ -74,7 +74,26 @@
     <script>
         articleId = @Model.Article.Id;
 
-        $(document).ready(colorVotes(articleId));
+        $(document).ready(colorArticleVotes(articleId));
+
+        $(document).ready(function () {
+
+            @foreach(var comment in Model.Comments)
+            {
+
+                @:if (Cookies.get(@comment.Id) == "1") {
+                    @:$(`#comment-up-${@comment.Id}`).css("color", "#3CBC8D");
+                    @:$(`#comment-down-${@comment.Id}`).css("color", "dimgray");
+                @:}
+
+                @:if (Cookies.get(@comment.Id) == "0") {
+                    @:$(`#comment-up-${@comment.Id}`).css("color", "dimgray");
+                    @:$(`#comment-down-${@comment.Id}`).css("color", "#3CBC8D");
+                @:}
+
+            }
+
+        });
     </script>
 }
 
