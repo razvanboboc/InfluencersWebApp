@@ -32,6 +32,15 @@
     border-radius: 8px;
 }
 
+.comment-container {
+    word-wrap: break-word;
+    overflow: auto;
+    border: 1px gray solid;
+    padding: 50px;
+    /*margin: 5px;*/
+    border-radius: 8px;
+}
+
 .post-container:hover {
     border: 1px solid black;
     border-radius: 8px;
@@ -73,4 +82,26 @@ a {
 
 .right{
     right: 3000px;
+}
+
+.column {
+    float: left;
+    width: 25%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+}
+
+.sort-container {
+
+    overflow: auto;
+    border: 1px gray solid;
+    padding: 50px;
+    margin: 20px;
+    border-radius: 8px;
+    content: "";
+    clear: both;
+}
+
+* {
+    box-sizing: border-box;
 }

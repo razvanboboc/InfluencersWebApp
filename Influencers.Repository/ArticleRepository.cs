@@ -25,7 +25,7 @@ namespace Influencers.Repository.Abstractions
 
         public Article GetArticleById(int id)
         {
-            return dbContext.Article.Where(article => article.Id == id).SingleOrDefault();
+            return dbContext.Article.Where(article => article.Id == id).Include(author => author.Author).SingleOrDefault();
         }
 
         public void UpdateArticleVotes(int articleId, int flag)

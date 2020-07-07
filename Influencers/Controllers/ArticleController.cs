@@ -5,6 +5,7 @@ using Influencers.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -52,16 +53,25 @@ namespace Influencers.Controllers
             switch (flag)
             {
                 case "top":
-                    previewedArticles = articleService.OrderArticlesDescendinglyByVotes(previewedArticles);
+                    articlesWithTags = articlesWithTags.OrderByDescending(vm => vm.Article.Votes).ToList();
                     break;
                 case "new":
-                    previewedArticles = articleService.OrderArticleMostRecent(previewedArticles);
+                    articlesWithTags = articlesWithTags.OrderByDescending(vm => vm.Article.AddedTime).ToList();
                     break;
                 case "hot":
-                    previewedArticles = articleService.CategorizeHot(previewedArticles);
+                    foreach (ViewArticleViewModel articleWithTags in articlesWithTags.ToList())
+                    {
+                        TimeSpan diff = DateTime.Now - articleWithTags.Article.AddedTime;
+                        double hours = diff.TotalHours;
+
+                        if (!(hours < 24 && articleWithTags.Article.Votes > 5))
+                        {
+                            articlesWithTags.Remove(articleWithTags);
+                        }
+                    }
                     break;
                 case "old":
-                    previewedArticles = previewedArticles.OrderBy(article => article.AddedTime);
+                    articlesWithTags = articlesWithTags.OrderBy(vm => vm.Article.AddedTime).ToList();
                     break;
             };
 

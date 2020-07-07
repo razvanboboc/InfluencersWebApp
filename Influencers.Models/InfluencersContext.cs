@@ -49,7 +49,7 @@ namespace Influencers.Models
 
             modelBuilder.Entity<ArticleTags>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(x => new { x.ArticleId, x.TagId });
 
                 entity.HasIndex(e => new { e.ArticleId, e.TagId })
                     .HasName("UQ__ArticleT__7D0083163AC3ED2A")

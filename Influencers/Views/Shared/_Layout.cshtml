@@ -23,41 +23,22 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        @*<li class="nav-item">
-                               <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddArticle">Add Article</a>
-                            </li>*@
 
                         <li class="nav-item user-action-button @Html.IsSelected(actions: "AddArticle", controllers: "Article")">
                             <a class="nav-link text-dark" href="@Url.Action("AddArticle", "Article")">Add Article</a>
                         </li>
 
-                        @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="JoinInfluencers">Join Influencers</a>
-                            </li>*@
 
                         <li class="nav-item user-action-button @Html.IsSelected(actions: "JoinInfluencers", controllers: "Author")">
                             <a class="nav-link text-dark" href="@Url.Action("JoinInfluencers", "Author")">Join Influencers</a>
                         </li>
 
-                        @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Ranking">Ranking</a>
-                            </li>*@
 
                         <li class="nav-item user-action-button @Html.IsSelected(actions: "Ranking", controllers: "Author")">
                             <a class="nav-link text-dark" href="@Url.Action("Ranking", "Author")">Ranking</a>
                         </li>
                     </ul>
 
-                    @*<form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>*@
-                    @*<div class="search-container">
-                        <form action="/action_page.php">
-                            <input type="text" placeholder="Search.." name="search">
-                            <button type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>*@
                 </div>
             </div>
         </nav>
@@ -70,7 +51,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Influencers - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - Influencers - <a asp-area="" asp-controller="Article" asp-action="Index">Homepage</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
