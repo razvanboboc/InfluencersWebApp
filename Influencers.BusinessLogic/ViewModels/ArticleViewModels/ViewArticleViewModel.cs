@@ -10,5 +10,7 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
         public Article Article { get; set; }
 
         public IEnumerable<Tags> Tags { get; set; }
+
+        public IEnumerable<Comment> Comments { get; set; }
      }
 }

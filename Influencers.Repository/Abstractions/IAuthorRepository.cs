@@ -7,6 +7,7 @@ namespace Influencers.Repository.Abstractions
     public interface IAuthorRepository : IRepository<Author>
     {
         Author GetAuthorByArticleId(int articleId);
+        Author GetAuthorByCommentId(int commentId);
 
         Author GetAuthorByEmail(string email);
 
@@ -15,5 +16,7 @@ namespace Influencers.Repository.Abstractions
         IEnumerable<Author> OrderAuthorsDescendingByVotes(IEnumerable<Author> authors);
 
         void UpdateAuthorPostVotes(Author author, int flag);
+
+        void UpdateAuthorVotes(int authorId);
     }
 }

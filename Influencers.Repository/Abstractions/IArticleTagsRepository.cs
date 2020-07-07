@@ -9,7 +9,6 @@ namespace Influencers.Repository.Abstractions
     {
         IEnumerable<Tags> GetTagsOfArticleById(int articleId);
 
-        IEnumerable<ArticleTags> GetArticlesIncludingTags();
 
     }
 }

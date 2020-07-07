@@ -18,6 +18,7 @@ namespace Influencers.Models
         public virtual DbSet<Article> Article { get; set; }
         public virtual DbSet<ArticleTags> ArticleTags { get; set; }
         public virtual DbSet<Author> Author { get; set; }
+        public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -48,7 +49,7 @@ namespace Influencers.Models
 
             modelBuilder.Entity<ArticleTags>(entity =>
             {
-                entity.HasKey( x => new {x.ArticleId, x.TagId });
+                entity.HasKey(x => new { x.ArticleId, x.TagId });
 
                 entity.HasIndex(e => new { e.ArticleId, e.TagId })
                     .HasName("UQ__ArticleT__7D0083163AC3ED2A")
@@ -80,6 +81,25 @@ namespace Influencers.Models
                 entity.Property(e => e.Nickname)
                     .HasMaxLength(255)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.Property(e => e.AddedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.ArticleId).HasColumnName("Article_Id");
+
+                entity.Property(e => e.AuthorId).HasColumnName("Author_Id");
+
+                entity.HasOne(d => d.Article)
+                    .WithMany(p => p.Comment)
+                    .HasForeignKey(d => d.ArticleId)
+                    .HasConstraintName("FK__Comment__Article__4D94879B");
+
+                entity.HasOne(d => d.Author)
+                    .WithMany(p => p.Comment)
+                    .HasForeignKey(d => d.AuthorId)
+                    .HasConstraintName("FK__Comment__Author___4CA06362");
             });
 
             modelBuilder.Entity<Tags>(entity =>

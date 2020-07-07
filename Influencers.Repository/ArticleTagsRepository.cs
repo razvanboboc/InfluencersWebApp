@@ -15,12 +15,6 @@ namespace Influencers.Repository
 
         }
 
-        public IEnumerable<ArticleTags> GetArticlesIncludingTags()
-        {
-            var y = dbContext.Article.Include(article => article.Tags).ThenInclude(row => row.Tag).Select(articleTag => new { articleTag, articleTag.Tags }).AsEnumerable();
-            var x = dbContext.ArticleTags.Include(articleTag => articleTag.Article).Include(articleTag => articleTag.Tag).Select(articleTag => new { articleTag.Article, articleTag.Tag }).AsEnumerable(); 
-            return dbContext.ArticleTags.Include(articleTag => articleTag.Article).Include(articleTag => articleTag.Tag).AsEnumerable();
-        }
 
         public IEnumerable<Tags> GetTagsOfArticleById(int articleId)
         {

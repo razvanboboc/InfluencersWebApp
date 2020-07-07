@@ -3,20 +3,97 @@
     ViewData["Title"] = "ViewArticle";
 }
 
-<h2 style="text-align:center">@Model.Article.Title</h2>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/homepage.css">
+</head>
+<div class="w-auto p-3 post-container2" style="background-color: #FCFCFC;">
+    <div class="vote vote-container">
+        <span id="article-up-@Model.Article.Id" class="up-vote" onclick="setValues(@Model.Article.Id, 1)"><i class="fas fa-angle-up"></i></span>
+        <span id="article-counter-@Model.Article.Id" class="number">@Html.DisplayFor(model => Model.Article.Votes)</span>
+        <span id="article-down-@Model.Article.Id" class="down-vote" onclick=" setValues(@Model.Article.Id, 2)"><i class="fas fa-angle-down"></i></span>
+    </div>
+    <div class="content" style=background-color: white;">
+        <a asp-action="ViewArticle" asp-route-id="@Model.Article.Id" asp-controller="Article" style="text-decoration: none; color: black;">
+            <div class="posted">
+                Posted by @Html.DisplayFor(model => Model.Article.Author.Nickname) on @Html.DisplayFor(model => Model.Article.AddedTime)
+            </div>
+            <h3>
+                @Html.DisplayFor(model => Model.Article.Title)
+            </h3>
+
+            <p>
+                @Html.DisplayFor(model => Model.Article.Content)
+            </p>
+        </a>
+        <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@Model.Article.Id">Edit</a>
+        @foreach (var tag in Model.Tags)
+        {
+            <span>@tag.Name</span>
+        }
+    </div>
+
+
+</div>
+
 <br />
+
+<a class="btn btn-primary btn-lg btn-block" href='@Url.Action("AddComment", "Comment", new { articleId =  Model.Article.Id })'>
+    Comment on this post
+</a>
 <br />
+<p class="align-content-lg-end"style="right:20px; font-size: 30px;">@Model.Comments.Count() comments</p>
+<hr />
 
-<p>@Model.Article.Content</p>
-<br />
-
-<p>Posted at @Model.Article.AddedTime</p> 
-
-<a href='@Url.Action("Index", "Article")'>Back</a>
-
-@foreach(var item in Model.Tags)
+@foreach (var comment in Model.Comments)
 {
-    <span>@item.Name</span> 
+
+    <div class="w-75 p-3 comment-container" style="background-color: #FCFCFC;">
+        <div class="vote vote-container">
+            <span id="comment-up-@comment.Id" class="up-vote" onclick="setCommentValues(@comment.Id, 1)"><i class="fas fa-angle-up"></i></span>
+            <span id="comment-counter-@comment.Id" class="number">@Html.DisplayFor(model => comment.Votes)</span>
+            <span id="comment-down-@comment.Id" class="down-vote" onclick=" setCommentValues(@comment.Id, 2)"><i class="fas fa-angle-down"></i></span>
+        </div>
+        <div class="content" style=background-color: white;">
+            <div class="posted">
+                Posted by @Html.DisplayFor(model => comment.Author.Nickname) on @Html.DisplayFor(model => comment.AddedTime);
+            </div>
+            <p>
+                @Html.DisplayFor(model => comment.Content)
+            </p>
+            @*<a asp-action="EditArticle" asp-controller="Article" asp-route-id="@Model.Article.Id">Edit</a>*@
+        </div>
+    </div>
+    <br/>
 }
-<br />
+
+@section scripts{
+
+    <script>
+        articleId = @Model.Article.Id;
+
+        $(document).ready(colorArticleVotes(articleId));
+
+        $(document).ready(function () {
+
+            @foreach(var comment in Model.Comments)
+            {
+
+                @:if (Cookies.get(@comment.Id) == "1") {
+                    @:$(`#comment-up-${@comment.Id}`).css("color", "#3CBC8D");
+                    @:$(`#comment-down-${@comment.Id}`).css("color", "dimgray");
+                @:}
+
+                @:if (Cookies.get(@comment.Id) == "0") {
+                    @:$(`#comment-up-${@comment.Id}`).css("color", "dimgray");
+                    @:$(`#comment-down-${@comment.Id}`).css("color", "#3CBC8D");
+                @:}
+
+            }
+
+        });
+    </script>
+}
 

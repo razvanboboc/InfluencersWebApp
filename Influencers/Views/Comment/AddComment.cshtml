@@ -1,22 +1,25 @@
-﻿@model Influencers.BusinessLogic.ViewModels.ArticleViewModels.EditArticleViewModel
+﻿@model Influencers.BusinessLogic.ViewModels.CommentViewModels.AddCommentViewModel
 @{
-    ViewData["Title"] = "Edit Article";
+    ViewData["Title"] = "Add Comment";
 }
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<form class="w3-container w3-card-4" asp-action="EditArticle" method="post">
-    <h2 class="w3-text-blue">Edit your article</h2>
+<form class="w3-container w3-card-4" asp-action="AddComment" asp-controller="Comment" method="post">
+    <h2 class="w3-text-blue">Comment on this post</h2>
+
     <input type="hidden" asp-for="ArticleId" />
     <div class="row">
         <div class="col-12">
             <label class="w3-text-blue"><b>Email</b></label>
-            <input class="form-control" type="text" asp-for="Email" />
+            <input class="form-control" type="email" id="email" asp-for="Email">
         </div>
     </div>
+    <br />
+
     <br />
     <div class="row">
         <div class="col-12">
@@ -24,6 +27,8 @@
             <textarea class="w3-input w3-border" asp-for="Content"></textarea>
         </div>
     </div>
+    <br />
+
     <br />
 
     <p><button type="submit" class="btn btn-primary w3-btn w3-blue">Post</button></p>

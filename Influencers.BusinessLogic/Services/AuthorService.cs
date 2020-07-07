@@ -42,11 +42,24 @@ namespace Influencers.BusinessLogic.Services
             return authorRepository.GetAuthorByArticleId(articleId);
         }
 
+        public Author GetAuthorByCommentId(int commentId)
+        {
+            return authorRepository.GetAuthorByCommentId(commentId);
+        }
+        public Author GetAuthorByEmail(string email)
+        {
+            return authorRepository.GetAuthorByEmail(email);
+        }
+
         public void UpdateAuthorPostVotes(Author author, int flag)
         {
             authorRepository.UpdateAuthorPostVotes(author, flag);
         }
 
+        public void UpdateAuthorVotes(int authorId)
+        {
+            authorRepository.UpdateAuthorVotes(authorId);
+        }
 
     }
 }

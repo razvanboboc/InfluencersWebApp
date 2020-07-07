@@ -5,6 +5,7 @@ using Influencers.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,14 +21,16 @@ namespace Influencers.Controllers
         private readonly AuthorService authorService;
         private readonly TagService tagService;
         private readonly ArticleTagsService articleTagsService;
+        private readonly CommentService commentService;
 
-        public ArticleController(ILogger<ArticleController> logger, ArticleService articleService, AuthorService authorService, TagService tagService, ArticleTagsService articleTagsService)
+        public ArticleController(ILogger<ArticleController> logger, ArticleService articleService, AuthorService authorService, TagService tagService, ArticleTagsService articleTagsService,CommentService commentService)
         {
             _logger = logger;
             this.articleService = articleService;
             this.authorService = authorService;
             this.tagService = tagService;
             this.articleTagsService = articleTagsService;
+            this.commentService = commentService;
         }
 
         [HttpGet]
@@ -50,16 +53,25 @@ namespace Influencers.Controllers
             switch (flag)
             {
                 case "top":
-                    previewedArticles = articleService.OrderArticlesDescendinglyByVotes(previewedArticles);
+                    articlesWithTags = articlesWithTags.OrderByDescending(vm => vm.Article.Votes).ToList();
                     break;
                 case "new":
-                    previewedArticles = articleService.OrderArticleMostRecent(previewedArticles);
+                    articlesWithTags = articlesWithTags.OrderByDescending(vm => vm.Article.AddedTime).ToList();
                     break;
                 case "hot":
-                    previewedArticles = articleService.CategorizeHot(previewedArticles);
+                    foreach (ViewArticleViewModel articleWithTags in articlesWithTags.ToList())
+                    {
+                        TimeSpan diff = DateTime.Now - articleWithTags.Article.AddedTime;
+                        double hours = diff.TotalHours;
+
+                        if (!(hours < 24 && articleWithTags.Article.Votes > 5))
+                        {
+                            articlesWithTags.Remove(articleWithTags);
+                        }
+                    }
                     break;
                 case "old":
-                    previewedArticles = previewedArticles.OrderBy(article => article.AddedTime);
+                    articlesWithTags = articlesWithTags.OrderBy(vm => vm.Article.AddedTime).ToList();
                     break;
             };
 
@@ -74,7 +86,9 @@ namespace Influencers.Controllers
 
             var tags = articleTagsService.GetTagsOfArticleById(id);
 
-            return View(new ViewArticleViewModel { Article = article , Tags = tags});
+            var comments = commentService.GetCommentsByArticleId(id);
+
+            return View(new ViewArticleViewModel { Article = article , Tags = tags, Comments = comments});
         }
 
         [HttpGet]
