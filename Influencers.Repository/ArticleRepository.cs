@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Influencers.Repository.Abstractions
 {
@@ -101,6 +102,36 @@ namespace Influencers.Repository.Abstractions
             }
 
             return filteredArticles.AsEnumerable();
+        }
+
+        public IEnumerable<Article> SearchArticlesByTags(MatchCollection tags)
+        {
+            var articles = dbContext.Article.Include(article => article.Tags).ThenInclude(tags => tags.Tag);
+
+            List<Article> filteredArticles = new List<Article>();
+
+            foreach (var article in articles.ToList())
+            {
+                var tagsOfArticle = article.Tags;
+
+                foreach (var articleTag in tagsOfArticle)
+                {
+                    //if (tags.Contains(articleTag.Tag.))
+                    //{
+                    //    filteredArticles.Add(article);
+                    //}
+
+                    foreach(var tag in tags)
+                    {
+                        if (tag.ToString().Contains(articleTag.Tag.Name))
+                        {
+                            filteredArticles.Add(article);
+                        }
+                    }
+                }
+            }
+
+            return filteredArticles;
         }
     }
 }
