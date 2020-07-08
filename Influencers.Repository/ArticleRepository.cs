@@ -85,5 +85,22 @@ namespace Influencers.Repository.Abstractions
                 .Where(a => a.Author.Email == email)
                 .SingleOrDefault();
         }
+
+        public IEnumerable<Article> SearchArticles(string content)
+        {
+            var articles = GetAll();
+
+            List<Article> filteredArticles = new List<Article>();
+
+            foreach(var article in articles)
+            {
+                if(article.Content.Contains(content) || article.Title.Contains(content))
+                {
+                    filteredArticles.Add(article);
+                }
+            }
+
+            return filteredArticles.AsEnumerable();
+        }
     }
 }

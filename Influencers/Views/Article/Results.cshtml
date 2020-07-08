@@ -1,0 +1,108 @@
+﻿@model Influencers.BusinessLogic.ViewModels.ArticleViewModels.ArticleListViewModel
+@using  Influencers.Helpers
+@{
+    ViewData["Title"] = "Results";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/homepage.css">
+</head>
+
+<br />
+
+
+<div class="w-auto p-3 sort-container container" style="background-color: #FCFCFC;">
+    <div class="row">
+        <div class="col-sm justify-content-center text-center">
+            <a href='@Url.Action("Results", "Article", new { flag = "top" })'>
+                <i class="fas fa-crown fa-2x"></i>
+                <span style="font-family: sans-serif,'Comic Sans MS'; font-size:25px">Top</span>
+            </a>
+        </div>
+
+        <div class="col-sm text-center">
+
+            <a class="align-middle" href='@Url.Action("Results", "Article", new { flag = "new" })'>
+                <i class="fas fa-clock fa-2x"></i>
+                <span style="font-family: sans-serif,'Comic Sans MS'; font-size:25px">New</span>
+
+            </a>
+        </div>
+
+        <div class="col-sm text-center">
+
+            <a href='@Url.Action("Results", "Article", new { flag = "hot" })'>
+                <i class="fab fa-hotjar fa-2x"></i>
+                <span style="font-family: sans-serif,'Comic Sans MS'; font-size:25px">Hot</span>
+
+            </a>
+        </div>
+
+        <div class="col-sm text-center">
+
+            <a href='@Url.Action("Results", "Article", new { flag = "old" })'>
+                <i class="fab fa-pagelines fa-2x"></i>
+                <span style="font-family: sans-serif,'Comic Sans MS'; font-size:25px">Old</span>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+@foreach (var article in Model.Articles)
+{
+    <div class="w-auto p-3 post-container" style="background-color: #FCFCFC;">
+        <div class="vote vote-container">
+            <span id="article-up-@article.Article.Id" class="up-vote" onclick="setValues(@article.Article.Id, 1)"><i class="fas fa-angle-up"></i></span>
+            <span id="article-counter-@article.Article.Id" class="number">@Html.DisplayFor(model => article.Article.Votes)</span>
+            <span id="article-down-@article.Article.Id" class="down-vote" onclick=" setValues(@article.Article.Id, 2)"><i class="fas fa-angle-down"></i></span>
+        </div>
+        <div class="content" style=background-color: white;">
+            <a asp-action="ViewArticle" asp-route-id="@article.Article.Id" asp-controller="Article" style="text-decoration: none; color: black;">
+                <div class="posted">
+                    Posted by @Html.DisplayFor(model => article.Article.Author.Nickname) on @Html.DisplayFor(model => article.Article.AddedTime)
+                </div>
+                <h3>
+                    @Html.DisplayFor(model => article.Article.Title)
+                </h3>
+
+                <p>
+                    @Html.DisplayFor(model => article.Article.Content)...
+                </p>
+            </a>
+            <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@article.Article.Id">Edit</a>
+            @foreach (var tag in article.Tags)
+            {
+                <span>@tag.Name</span>
+            }
+        </div>
+
+    </div>
+}
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+            @foreach(var article in Model.Articles)
+            {
+
+                @:if (Cookies.get(@article.Article.Id) == "1") {
+                    @:$(`#article-up-${@article.Article.Id}`).css("color", "#3CBC8D");
+                    @:$(`#article-down-${@article.Article.Id}`).css("color", "dimgray");
+                @:}
+
+                @:if (Cookies.get(@article.Article.Id) == "0") {
+                    @:$(`#article-up-${@article.Article.Id}`).css("color", "dimgray");
+                    @:$(`#article-down-${@article.Article.Id}`).css("color", "#3CBC8D");
+                @:}
+
+            }
+
+        });
+    </script>
+}

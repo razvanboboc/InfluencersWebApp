@@ -81,5 +81,10 @@ namespace Influencers.BusinessLogic.Services
             return articleRepository.GetNewestAddedArticle(title, content, email);
         }
 
+        public IEnumerable<Article> SearchArticles(string content)
+        {
+            return articleRepository.SearchArticles(content);
+        }
+
     }
 }

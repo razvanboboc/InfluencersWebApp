@@ -12,34 +12,35 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 justify-content-between">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Article" asp-action="Index">
-                    <img src="~/Images/logo4.png" alt="Sample Photo" />
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+        <nav class="navbar navbar-expand-lg navbar-light " style=" background-color:#f1f1f1">
+            <a class="navbar-brand" asp-area="" asp-controller="Article" asp-action="Index">
+                <img src="~/Images/logo4.png" alt="Sample Photo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
 
-                        <li class="nav-item user-action-button @Html.IsSelected(actions: "AddArticle", controllers: "Article")">
-                            <a class="nav-link text-dark" href="@Url.Action("AddArticle", "Article")">Add Article</a>
-                        </li>
-
-
-                        <li class="nav-item user-action-button @Html.IsSelected(actions: "JoinInfluencers", controllers: "Author")">
-                            <a class="nav-link text-dark" href="@Url.Action("JoinInfluencers", "Author")">Join Influencers</a>
-                        </li>
+                    <li class="nav-item user-action-button @Html.IsSelected(actions: "AddArticle", controllers: "Article")">
+                        <a class="nav-link text-dark" href="@Url.Action("AddArticle", "Article")">Add Article</a>
+                    </li>
 
 
-                        <li class="nav-item user-action-button @Html.IsSelected(actions: "Ranking", controllers: "Author")">
-                            <a class="nav-link text-dark" href="@Url.Action("Ranking", "Author")">Ranking</a>
-                        </li>
-                    </ul>
+                    <li class="nav-item user-action-button @Html.IsSelected(actions: "JoinInfluencers", controllers: "Author")">
+                        <a class="nav-link text-dark" href="@Url.Action("JoinInfluencers", "Author")">Join Influencers</a>
+                    </li>
 
-                </div>
+
+                    <li class="nav-item user-action-button @Html.IsSelected(actions: "Ranking", controllers: "Author")">
+                        <a class="nav-link text-dark" href="@Url.Action("Ranking", "Author")">Ranking</a>
+                    </li>
+                </ul>
+                @using (Html.BeginForm("Index", "Article", FormMethod.Get))
+                {
+                    @Html.TextBox("flag");<input type="submit" value="Search" />
+                }
             </div>
         </nav>
     </header>
@@ -82,9 +83,9 @@
             padding: 10px;
         }
 
-        .nav-item:hover {
-            background-color: lightskyblue;
-        }
+            .nav-item:hover {
+                background-color: lightskyblue;
+            }
 
         .selected {
             background-color: lightskyblue;
@@ -111,3 +112,12 @@
             text-decoration: none;
         }*/
     </style>
+
+<script>
+    $('#press').click(function () {
+       var url = '@Url.Action("Index", "Article")';
+       var textValue = $('#textbox').val();
+
+       window.location.href = url + '?id=' + textValue;
+    });
+</script>

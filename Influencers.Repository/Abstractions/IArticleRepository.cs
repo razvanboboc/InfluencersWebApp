@@ -20,5 +20,6 @@ namespace Influencers.Repository.Abstractions
         IEnumerable<Article> OrderArticleMostRecent(IEnumerable<Article> articles);
 
         IEnumerable<Article> CategorizeHot(IEnumerable<Article> articles);
+        IEnumerable<Article> SearchArticles(string content);
     }
 }
