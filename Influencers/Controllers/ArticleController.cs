@@ -36,7 +36,7 @@ namespace Influencers.Controllers
         [HttpGet]
         public IActionResult Index(string flag)
         {
-            if(flag == null)
+            if (flag == null || flag == "top" || flag =="new" || flag =="hot" || flag == "old")
             {
                 var articles = articleService.GetAll();
 
