@@ -19,5 +19,7 @@ namespace Influencers.Models
 
         public virtual Author Author { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
+
+        public ICollection<ArticleTags> Tags { get; set; } 
     }
 }

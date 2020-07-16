@@ -60,13 +60,13 @@ namespace Influencers.Models
                 entity.Property(e => e.TagId).HasColumnName("Tag_Id");
 
                 entity.HasOne(d => d.Article)
-                    .WithMany()
+                    .WithMany(t => t.Tags)
                     .HasForeignKey(d => d.ArticleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__ArticleTa__Artic__3E52440B");
 
                 entity.HasOne(d => d.Tag)
-                    .WithMany()
+                    .WithMany(a => a.Articles)
                     .HasForeignKey(d => d.TagId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__ArticleTa__Tag_I__3F466844");

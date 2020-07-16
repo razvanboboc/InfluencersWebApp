@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Influencers.BusinessLogic.Services
 {
@@ -84,6 +85,11 @@ namespace Influencers.BusinessLogic.Services
         public IEnumerable<Article> SearchArticles(string content)
         {
             return articleRepository.SearchArticles(content);
+        }
+
+        public IEnumerable<Article> SearchArticlesByTags(MatchCollection tags)
+        {
+            return articleRepository.SearchArticlesByTags(tags);
         }
 
     }

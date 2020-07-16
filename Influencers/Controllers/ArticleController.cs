@@ -36,7 +36,7 @@ namespace Influencers.Controllers
         [HttpGet]
         public IActionResult Index(string flag)
         {
-            if(flag == null)
+            if (flag == null)
             {
                 var articles = articleService.GetAll();
 
@@ -77,7 +77,27 @@ namespace Influencers.Controllers
                 };
                 return View(new ArticleListViewModel { Articles = articlesWithTags });
             }
-            else
+            else if (flag.Contains('#'))
+            {
+
+                var searchedTags = tagService.FilterHashtags(flag);
+
+                var results = articleService.SearchArticlesByTags(searchedTags);
+
+                var previewedArticles = articleService.GetPreviewedArticles(results);
+
+                List<ViewArticleViewModel> articlesWithTags = new List<ViewArticleViewModel>();
+
+                foreach (var article in previewedArticles)
+                {
+                    var tags = articleTagsService.GetTagsOfArticleById(article.Id);
+
+                    articlesWithTags.Add(new ViewArticleViewModel { Article = article, Tags = tags });
+                }
+
+                return View(new ArticleListViewModel { Articles = articlesWithTags });
+            }
+            else 
             {
                 var results = articleService.SearchArticles(flag);
 

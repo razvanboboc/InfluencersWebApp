@@ -38,6 +38,13 @@ namespace Influencers.Repository
             
         }
 
+        //public IEnumerable<Tags> FilterSearchedTags(string tags)
+        //{
+        //    var searchedHashTags = FilterHashtags(tags).ToList();
+
+
+        //}
+
         public Tags GetTagByName(string tagName)
         {
             return dbContext.Tags.Where(t => t.Name == tagName).SingleOrDefault();
