@@ -15,5 +15,6 @@ namespace Influencers.Repository.Abstractions
         bool TagExists(string tag);
 
         Tags GetTagByName(string tagName);
+
     }
 }
