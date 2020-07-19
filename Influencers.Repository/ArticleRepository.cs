@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Influencers.Repository.Abstractions
 {
@@ -84,6 +85,53 @@ namespace Influencers.Repository.Abstractions
                 .Where(a => a.Content == content)
                 .Where(a => a.Author.Email == email)
                 .SingleOrDefault();
+        }
+
+        public IEnumerable<Article> SearchArticles(string content)
+        {
+            var articles = GetAll();
+
+            List<Article> filteredArticles = new List<Article>();
+
+            foreach(var article in articles)
+            {
+                if(article.Content.Contains(content) || article.Title.Contains(content))
+                {
+                    filteredArticles.Add(article);
+                }
+            }
+
+            return filteredArticles.AsEnumerable();
+        }
+
+        public IEnumerable<Article> SearchArticlesByTags(MatchCollection tags)
+        {
+            var articles = dbContext.Article.Include(article => article.Tags).ThenInclude(tags => tags.Tag);
+
+            List<Article> filteredArticles = new List<Article>();
+
+            foreach (var article in articles.ToList())
+            {
+                var tagsOfArticle = article.Tags;
+
+                foreach (var articleTag in tagsOfArticle)
+                {
+                    //if (tags.Contains(articleTag.Tag.))
+                    //{
+                    //    filteredArticles.Add(article);
+                    //}
+
+                    foreach(var tag in tags)
+                    {
+                        if (tag.ToString().Contains(articleTag.Tag.Name))
+                        {
+                            filteredArticles.Add(article);
+                        }
+                    }
+                }
+            }
+
+            return filteredArticles;
         }
     }
 }

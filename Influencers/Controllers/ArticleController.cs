@@ -36,48 +36,86 @@ namespace Influencers.Controllers
         [HttpGet]
         public IActionResult Index(string flag)
         {
-            
-            var articles = articleService.GetAll();
-
-            var previewedArticles = articleService.GetPreviewedArticles(articles);
-
-            List<ViewArticleViewModel> articlesWithTags = new List<ViewArticleViewModel>();
-
-            foreach (var article in previewedArticles)
+            if (flag == null || flag =="top" || flag == "new" || flag =="hot" || flag == "old")
             {
-                var tags = articleTagsService.GetTagsOfArticleById(article.Id);
+                var articles = articleService.GetAll();
 
-                articlesWithTags.Add(new ViewArticleViewModel { Article = article, Tags = tags });
+                var previewedArticles = articleService.GetPreviewedArticles(articles);
+
+                List<ViewArticleViewModel> articlesWithTags = new List<ViewArticleViewModel>();
+
+                foreach (var article in previewedArticles)
+                {
+                    var tags = articleTagsService.GetTagsOfArticleById(article.Id);
+
+                    articlesWithTags.Add(new ViewArticleViewModel { Article = article, Tags = tags });
+                }
+
+                switch (flag)
+                {
+                    case "top":
+                        articlesWithTags = articlesWithTags.OrderByDescending(vm => vm.Article.Votes).ToList();
+                        break;
+                    case "new":
+                        articlesWithTags = articlesWithTags.OrderByDescending(vm => vm.Article.AddedTime).ToList();
+                        break;
+                    case "hot":
+                        foreach (ViewArticleViewModel articleWithTags in articlesWithTags.ToList())
+                        {
+                            TimeSpan diff = DateTime.Now - articleWithTags.Article.AddedTime;
+                            double hours = diff.TotalHours;
+
+                            if (!(hours < 24 && articleWithTags.Article.Votes > 5))
+                            {
+                                articlesWithTags.Remove(articleWithTags);
+                            }
+                        }
+                        break;
+                    case "old":
+                        articlesWithTags = articlesWithTags.OrderBy(vm => vm.Article.AddedTime).ToList();
+                        break;
+                };
+                return View(new ArticleListViewModel { Articles = articlesWithTags });
+            }
+            else if (flag.Contains('#'))
+            {
+
+                var searchedTags = tagService.FilterHashtags(flag);
+
+                var results = articleService.SearchArticlesByTags(searchedTags);
+
+                var previewedArticles = articleService.GetPreviewedArticles(results);
+
+                List<ViewArticleViewModel> articlesWithTags = new List<ViewArticleViewModel>();
+
+                foreach (var article in previewedArticles)
+                {
+                    var tags = articleTagsService.GetTagsOfArticleById(article.Id);
+
+                    articlesWithTags.Add(new ViewArticleViewModel { Article = article, Tags = tags });
+                }
+
+                return View(new ArticleListViewModel { Articles = articlesWithTags });
+            }
+            else 
+            {
+                var results = articleService.SearchArticles(flag);
+
+                var previewedArticles = articleService.GetPreviewedArticles(results);
+
+                List<ViewArticleViewModel> articlesWithTags = new List<ViewArticleViewModel>();
+
+                foreach (var article in previewedArticles)
+                {
+                    var tags = articleTagsService.GetTagsOfArticleById(article.Id);
+
+                    articlesWithTags.Add(new ViewArticleViewModel { Article = article, Tags = tags });
+                }
+
+                return View(new ArticleListViewModel { Articles = articlesWithTags });
             }
 
-            switch (flag)
-            {
-                case "top":
-                    articlesWithTags = articlesWithTags.OrderByDescending(vm => vm.Article.Votes).ToList();
-                    break;
-                case "new":
-                    articlesWithTags = articlesWithTags.OrderByDescending(vm => vm.Article.AddedTime).ToList();
-                    break;
-                case "hot":
-                    foreach (ViewArticleViewModel articleWithTags in articlesWithTags.ToList())
-                    {
-                        TimeSpan diff = DateTime.Now - articleWithTags.Article.AddedTime;
-                        double hours = diff.TotalHours;
-
-                        if (!(hours < 24 && articleWithTags.Article.Votes > 5))
-                        {
-                            articlesWithTags.Remove(articleWithTags);
-                        }
-                    }
-                    break;
-                case "old":
-                    articlesWithTags = articlesWithTags.OrderBy(vm => vm.Article.AddedTime).ToList();
-                    break;
-            };
-
-            return View(new ArticleListViewModel { Articles = articlesWithTags });
         }
-
 
         [HttpGet]
         public IActionResult ViewArticle([FromRoute]int id)

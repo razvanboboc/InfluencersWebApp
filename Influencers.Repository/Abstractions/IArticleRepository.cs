@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Influencers.Repository.Abstractions
 {
@@ -20,5 +21,9 @@ namespace Influencers.Repository.Abstractions
         IEnumerable<Article> OrderArticleMostRecent(IEnumerable<Article> articles);
 
         IEnumerable<Article> CategorizeHot(IEnumerable<Article> articles);
+        IEnumerable<Article> SearchArticles(string content);
+        IEnumerable<Article> SearchArticlesByTags(MatchCollection tags);
+
+
     }
 }

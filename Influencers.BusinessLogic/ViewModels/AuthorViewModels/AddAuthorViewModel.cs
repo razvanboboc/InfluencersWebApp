@@ -10,7 +10,9 @@ namespace Influencers.BusinessLogic.ViewModels.AuthorViewModels
         [Required]
         public string Nickname { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please input a valid email")]
+        [StringLength(100)]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")]
         public string Email { get; set; }
     }
 }
