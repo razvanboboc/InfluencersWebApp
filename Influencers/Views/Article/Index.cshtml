@@ -62,10 +62,6 @@
         </div>
         <div class="content" style=background-color: white;">
             <a asp-action="ViewArticle" asp-route-id="@article.Article.Id" asp-controller="Article" style="text-decoration: none; color: black;">
-                @if (article.Article.ImageSource != null)
-                {
-                    <img src="~/ArticleImages/@article.Article.ImageSource" style="width: 220px; height: 220px;" />
-                }
                 <div class="posted">
                     Posted by @Html.DisplayFor(model => article.Article.Author.Nickname) on @Html.DisplayFor(model => article.Article.AddedTime)
                 </div>
@@ -76,7 +72,14 @@
                 <p>
                     @Html.DisplayFor(model => article.Article.Content)...
                 </p>
+                @if (article.Article.ImageSource != null)
+                {
+                    <div class="d-flex justify-content-center">
+                        <img src="~/ArticleImages/@article.Article.ImageSource" style="max-height:512px; max-width:100%; position:relative;" />
+                    </div>
+                }
             </a>
+            <br />
             <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@article.Article.Id">Edit</a>
             @foreach (var tag in article.Tags)
             {
