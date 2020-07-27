@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Influencers.Models\Influencers.Models.csproj" />
     <ProjectReference Include="..\Influencers.Repository\Influencers.Repository.csproj" />
   </ItemGroup>

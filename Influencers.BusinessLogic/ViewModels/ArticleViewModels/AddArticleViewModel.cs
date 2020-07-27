@@ -1,4 +1,5 @@
 ﻿using Influencers.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,6 +13,7 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
         [StringLength(100)]
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")]
         public string Email { get; set; }
+        public bool AuthorExists { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -19,5 +21,9 @@ namespace Influencers.BusinessLogic.ViewModels.ArticleViewModels
 
         [Required(ErrorMessage ="Please enter the hashtags")]
         public string Tags { get; set; }
+
+        [Required(ErrorMessage ="Add a new image to your article")]
+        public IFormFile Image { get; set; }
+
     }
 }

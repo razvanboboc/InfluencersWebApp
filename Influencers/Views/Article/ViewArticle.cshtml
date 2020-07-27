@@ -16,18 +16,19 @@
         <span id="article-down-@Model.Article.Id" class="down-vote" onclick=" setValues(@Model.Article.Id, 2)"><i class="fas fa-angle-down"></i></span>
     </div>
     <div class="content" style=background-color: white;">
-        <a asp-action="ViewArticle" asp-route-id="@Model.Article.Id" asp-controller="Article" style="text-decoration: none; color: black;">
             <div class="posted">
                 Posted by @Html.DisplayFor(model => Model.Article.Author.Nickname) on @Html.DisplayFor(model => Model.Article.AddedTime)
             </div>
             <h3>
                 @Html.DisplayFor(model => Model.Article.Title)
             </h3>
-
+            @if (Model.Article.ImageSource != null)
+            {
+                <img src="~/ArticleImages/@Model.Article.ImageSource" style="width: 220px; height: 220px;" />
+            }
             <p>
                 @Html.DisplayFor(model => Model.Article.Content)
             </p>
-        </a>
         <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@Model.Article.Id">Edit</a>
         @foreach (var tag in Model.Tags)
         {

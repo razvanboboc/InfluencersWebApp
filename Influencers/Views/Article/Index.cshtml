@@ -62,6 +62,10 @@
         </div>
         <div class="content" style=background-color: white;">
             <a asp-action="ViewArticle" asp-route-id="@article.Article.Id" asp-controller="Article" style="text-decoration: none; color: black;">
+                @if (article.Article.ImageSource != null)
+                {
+                    <img src="~/ArticleImages/@article.Article.ImageSource" style="width: 220px; height: 220px;" />
+                }
                 <div class="posted">
                     Posted by @Html.DisplayFor(model => article.Article.Author.Nickname) on @Html.DisplayFor(model => article.Article.AddedTime)
                 </div>

@@ -2,15 +2,20 @@
 using Influencers.BusinessLogic.ViewModels.ArticleViewModels;
 using Influencers.Models;
 using Influencers.Repository;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Web;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Net.Mail;
+
 
 namespace Influencers.Controllers
 {
@@ -22,8 +27,10 @@ namespace Influencers.Controllers
         private readonly TagService tagService;
         private readonly ArticleTagsService articleTagsService;
         private readonly CommentService commentService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public ArticleController(ILogger<ArticleController> logger, ArticleService articleService, AuthorService authorService, TagService tagService, ArticleTagsService articleTagsService,CommentService commentService)
+
+        public ArticleController(ILogger<ArticleController> logger, ArticleService articleService, AuthorService authorService, TagService tagService, ArticleTagsService articleTagsService,CommentService commentService, IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
             this.articleService = articleService;
@@ -31,6 +38,7 @@ namespace Influencers.Controllers
             this.tagService = tagService;
             this.articleTagsService = articleTagsService;
             this.commentService = commentService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -164,8 +172,10 @@ namespace Influencers.Controllers
                 MatchCollection extractedHashtags = tagService.FilterHashtags(model.Tags);
 
                 tagService.AddTags(extractedHashtags);
+
+                string imageUploadDirectory = Path.Combine(webHostEnvironment.WebRootPath, "ArticleImages");
   
-                articleService.AddArticle(model.Title, model.Content, model.Email);
+                articleService.AddArticle(model.Title, model.Content, model.Email, model.Image, imageUploadDirectory);
 
                 var recentlyCreatedArticle = articleService.GetNewestAddedArticle(model.Title, model.Content, model.Email);
 

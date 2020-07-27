@@ -1,8 +1,11 @@
 ﻿using Influencers.Models;
 using Influencers.Repository.Abstractions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -30,9 +33,11 @@ namespace Influencers.BusinessLogic.Services
             return articles;
         }
 
-        public void AddArticle(string title, string content, string email)
+        public void AddArticle(string title, string content, string email, IFormFile image, string uploadDirectory)
         {
             var author = authorRepository.GetAuthorByEmail(email);
+
+            var imageSource = UploadImage(uploadDirectory, image);
 
             articleRepository.Add(new Article()
             {
@@ -41,6 +46,7 @@ namespace Influencers.BusinessLogic.Services
                 AddedTime = DateTime.Now,
                 Author = author,
                 Votes = 0,
+                ImageSource = imageSource
             });
         }
 
@@ -90,6 +96,20 @@ namespace Influencers.BusinessLogic.Services
         public IEnumerable<Article> SearchArticlesByTags(MatchCollection tags)
         {
             return articleRepository.SearchArticlesByTags(tags);
+        }
+
+        public string UploadImage(string uploadDirectory, IFormFile articleImage)
+        {
+            var fileName = Guid.NewGuid().ToString() + "-" + articleImage.FileName;
+
+            string filePath = Path.Combine(uploadDirectory, fileName);
+
+            using (var filestream = new FileStream(filePath, FileMode.Create))
+            {
+                articleImage.CopyTo(filestream);
+            }
+
+            return fileName;
         }
 
     }
