@@ -72,7 +72,14 @@
                 <p>
                     @Html.DisplayFor(model => article.Article.Content)...
                 </p>
+                @if (article.Article.ImageSource != null)
+                {
+                    <div class="d-flex justify-content-center">
+                        <img src="~/ArticleImages/@article.Article.ImageSource" style="max-height:512px; max-width:100%; position:relative;" />
+                    </div>
+                }
             </a>
+            <br />
             <a asp-action="EditArticle" asp-controller="Article" asp-route-id="@article.Article.Id">Edit</a>
             @foreach (var tag in article.Tags)
             {

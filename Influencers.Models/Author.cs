@@ -15,6 +15,8 @@ namespace Influencers.Models
         public string Nickname { get; set; }
         public string Email { get; set; }
         public int? Votes { get; set; }
+        public string ImageSource { get; set; }
+
 
         public virtual ICollection<Article> Article { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
